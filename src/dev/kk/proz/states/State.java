@@ -3,6 +3,7 @@ package dev.kk.proz.states;
 import java.awt.Graphics;
 
 import dev.kk.proz.Game;
+import dev.kk.proz.Handler;
 
 public abstract class State {
 	
@@ -16,10 +17,10 @@ public abstract class State {
 		return currentState;
 	}
 	
-	protected Game game;
+	protected Handler handler;
 	
-	public State(Game game) {
-		this.game = game;
+	public State(Handler handler) {
+		this.handler = handler;
 	}
 	
 	

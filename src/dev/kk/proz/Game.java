@@ -10,6 +10,7 @@ import dev.kk.proz.gfx.Assets;
 import dev.kk.proz.gfx.ImageLoader;
 import dev.kk.proz.gfx.SpriteSheet;
 import dev.kk.proz.input.KeyManager;
+import dev.kk.proz.input.MouseManager;
 import dev.kk.proz.states.GameState;
 import dev.kk.proz.states.MenuState;
 import dev.kk.proz.states.State;
@@ -27,11 +28,14 @@ public class Game implements Runnable {
 	private Graphics g;
 	
 	//states
-	private State gameState;
-	private State menuState;
+	public State gameState;
+	public State menuState;
 	
 	//input
 	private KeyManager keyManager;
+	private MouseManager mouseManager;
+	//Handler
+	private Handler handler;
 	
 	
 	public Game(String title, int width, int height) {
@@ -39,16 +43,23 @@ public class Game implements Runnable {
 		this.height = height;
 		this.title = title;
 		keyManager = new KeyManager();
+		mouseManager = new MouseManager();
 	}
 	
 	private void init() { //initilize our game window
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
+		display.getFrame().addMouseListener(mouseManager);
+		display.getFrame().addMouseMotionListener(mouseManager);
+		display.getCanvas().addMouseListener(mouseManager);
+		display.getCanvas().addMouseMotionListener(mouseManager);
 		Assets.init();
 		
-		gameState = new GameState(this);
-		menuState = new MenuState(this);
-		State.setState(gameState);;
+		handler = new Handler(this);
+		
+		gameState = new GameState(handler);
+		menuState = new MenuState(handler);
+		State.setState(menuState);;
 	}
 	
 	private void tick() {
@@ -116,6 +127,10 @@ public class Game implements Runnable {
 		return keyManager;
 	}
 	
+	public MouseManager getMouseManager() {
+		return mouseManager;
+	}
+	
 	
 	public synchronized void start() {//starting game loop
 		if(running)
@@ -135,4 +150,30 @@ public class Game implements Runnable {
 			e.printStackTrace();
 		}
 	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public Display getDisplay() {
+		return display;
+	}
+
+	public void setDisplay(Display display) {
+		this.display = display;
+	}
+	
+	
 }
