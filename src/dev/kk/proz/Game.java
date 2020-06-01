@@ -77,7 +77,7 @@ public class Game implements Runnable {
 		}
 		g = bs.getDrawGraphics();
 		g.clearRect(0, 0, width, height); //clear screen
-
+		
 		if(State.getState() != null)
 			State.getState().render(g);
 		

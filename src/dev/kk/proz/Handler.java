@@ -2,10 +2,12 @@ package dev.kk.proz;
 
 import dev.kk.proz.input.KeyManager;
 import dev.kk.proz.input.MouseManager;
+import dev.kk.proz.maps.Map;
 
 public class Handler {
 
 	private Game game;
+	private Map map;
 	
 	public Handler(Game game) {
 		this.game = game;
@@ -34,4 +36,13 @@ public class Handler {
 	public void setGame(Game game) {
 		this.game = game;
 	}
+
+	public Map getMap() {
+		return map;
+	}
+
+	public void setMap(Map map) {
+		this.map = map;
+	}
+	
 }

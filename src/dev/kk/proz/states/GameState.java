@@ -6,6 +6,8 @@ import dev.kk.proz.Game;
 import dev.kk.proz.Handler;
 import dev.kk.proz.entities.creatures.Player;
 import dev.kk.proz.gfx.Assets;
+import dev.kk.proz.maps.Map;
+import dev.kk.proz.tiles.Tile;
 import dev.kk.proz.ui.ClickListener;
 import dev.kk.proz.ui.UIButton;
 import dev.kk.proz.ui.UIManager;
@@ -14,11 +16,14 @@ public class GameState extends State {
 
 	private Player player;
 	private UIManager uiManager;
+	private Map testMap;
 	
 	public GameState(Handler handler) {
 		super(handler);
 		
-		player = new Player(handler, 200, 200);
+		testMap= new Map("resources/map/basicMap.txt");
+		handler.setMap(testMap);
+		player = new Player(handler, testMap.getSpawnX(), testMap.getSpawnY());
 		
 		uiManager = new UIManager(handler);
 		handler.getMouseManager().setUIManager(uiManager);
@@ -42,6 +47,7 @@ public class GameState extends State {
 
 	@Override
 	public void render(Graphics g) {
+		testMap.render(g);
 		player.render(g);
 		uiManager.render(g);
 	}

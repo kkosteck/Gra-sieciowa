@@ -1,5 +1,6 @@
 package dev.kk.proz.entities.creatures;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import dev.kk.proz.Game;
@@ -11,6 +12,10 @@ public class Player extends Creature {
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFUALT_CREATURE_WIDTH, Creature.DEFUALT_CREATURE_HEIGHT);
 		
+		bounds.x = 12;
+		bounds.y  = 4;
+		bounds.width = 20;
+		bounds.height = 24;
 	}
 
 	@Override
@@ -37,7 +42,8 @@ public class Player extends Creature {
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(Assets.happyFace, (int)x, (int)y, width, height, null);
+		g.drawImage(Assets.bluePlayer, (int)x, (int)y, width, height, null);
+		
 	}
 	
 }

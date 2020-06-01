@@ -2,12 +2,13 @@ package dev.kk.proz.entities.creatures;
 
 import dev.kk.proz.Handler;
 import dev.kk.proz.entities.Entity;
+import dev.kk.proz.tiles.Tile;
 
 public abstract class Creature extends Entity{
 
 	public static final int DEFUALT_HEALTH = 10;
-	public static final float DEFUALT_SPEED = 10.0f;
-	public static final int DEFUALT_CREATURE_WIDTH = 100, DEFUALT_CREATURE_HEIGHT = 100;
+	public static final float DEFUALT_SPEED = 3.0f;
+	public static final int DEFUALT_CREATURE_WIDTH = 32, DEFUALT_CREATURE_HEIGHT = 32;
 	
 	protected int health;
 	protected float speed;
@@ -18,18 +19,59 @@ public abstract class Creature extends Entity{
 		health = DEFUALT_HEALTH;
 		speed = DEFUALT_SPEED;
 	}
+	
+	public void move() {
+		moveX();
+		moveY();
+	}
+	
+	public void moveX() {
+		if(xMove > 0) {//moving right
+			int tx = (int) (x + xMove + bounds.x + bounds.width) / Tile.TILEWIDTH;
+			
+			if(!collisionWithTile(tx, (int)(y + bounds.y)/ Tile.TILEHEIGHT) && 
+					!collisionWithTile(tx, (int) (y+ bounds.y + bounds.height) / Tile.TILEHEIGHT)) {
+				x += xMove;
+			}
+			
+		}else if(xMove < 0) {//moving left
+			int tx = (int) (x + xMove + bounds.x) / Tile.TILEWIDTH;
+			
+			if(!collisionWithTile(tx, (int)(y + bounds.y)/ Tile.TILEHEIGHT) && 
+					!collisionWithTile(tx, (int) (y+ bounds.y + bounds.height) / Tile.TILEHEIGHT)) {
+				x += xMove;
+			}
+		}
+	}
+	
+	public void moveY() {
+		if(yMove < 0) {//moving up
+			int ty = (int) (y + yMove + bounds.y) / Tile.TILEHEIGHT;
+			
+			if(!collisionWithTile((int)(x + bounds.x)/ Tile.TILEWIDTH, ty) && 
+					!collisionWithTile((int) (x+ bounds.x + bounds.width) / Tile.TILEWIDTH, ty)) {
+				y += yMove;
+			}
+			
+		}else if(yMove > 0) {//moving down
+			int ty = (int) (y + yMove + bounds.y + bounds.height) / Tile.TILEHEIGHT;
+			if(!collisionWithTile((int)(x + bounds.x)/ Tile.TILEWIDTH, ty) && 
+					!collisionWithTile((int) (x+ bounds.x + bounds.width) / Tile.TILEWIDTH, ty)) {
+				y += yMove;
+			}
+		}
+	}
+
+	protected boolean collisionWithTile(int x, int y) {
+		return handler.getMap().getTile(x, y).isSolid();
+	}
+	
+	
+	
 
 	public float getxMove() {
 		return xMove;
 	}
-	
-	public void move() {//temporary collision bounds
-		if((x + xMove) <= 1180 && (x + xMove) >= 0)
-			x += xMove;
-		if((y + yMove) <= 620 && (y + yMove) >= 0)
-			y += yMove;
-	}
-	
 
 	public void setxMove(float xMove) {
 		this.xMove = xMove;
