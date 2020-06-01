@@ -1,7 +1,5 @@
 package dev.kk.proz.entities.towers;
 
-import java.awt.Graphics;
-
 import dev.kk.proz.Handler;
 import dev.kk.proz.entities.Entity;
 

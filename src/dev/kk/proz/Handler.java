@@ -1,5 +1,6 @@
 package dev.kk.proz;
 
+import dev.kk.proz.entities.EntityManager;
 import dev.kk.proz.input.KeyManager;
 import dev.kk.proz.input.MouseManager;
 import dev.kk.proz.maps.Map;
@@ -19,6 +20,10 @@ public class Handler {
 	
 	public MouseManager getMouseManager() {
 		return game.getMouseManager();
+	}
+	
+	public EntityManager getEntityManager() {
+		return map.getEntityManager();
 	}
 	
 	public int getWidth() {

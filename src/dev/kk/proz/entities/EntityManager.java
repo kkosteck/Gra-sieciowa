@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import dev.kk.proz.Handler;
 import dev.kk.proz.entities.creatures.Player;
-import dev.kk.proz.states.State;
 
 public class EntityManager {
 	

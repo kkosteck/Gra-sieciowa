@@ -7,6 +7,7 @@ public class KeyManager implements KeyListener {
 
 	private boolean[] keys;
 	public boolean up, down, left, right;
+	public boolean attackTrigger;
 	
 	
 	public KeyManager() {
@@ -14,11 +15,12 @@ public class KeyManager implements KeyListener {
 	}
 	
 	public void tick() {
-		up = keys[KeyEvent.VK_UP];
-		down = keys[KeyEvent.VK_DOWN];
-		left = keys[KeyEvent.VK_LEFT];
-		right = keys[KeyEvent.VK_RIGHT];
-		
+		up = keys[KeyEvent.VK_W];
+		down = keys[KeyEvent.VK_S];
+		left = keys[KeyEvent.VK_A];
+		right = keys[KeyEvent.VK_D];
+		attackTrigger = keys[KeyEvent.VK_SPACE];
+	
 	}
 	
 	@Override

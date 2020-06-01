@@ -8,13 +8,15 @@ import dev.kk.proz.tiles.Tile;
 
 public class BasicTower extends Tower {
 
-	public BasicTower(Handler handler, float x, float y) {
+	public BasicTower(Handler handler, float x, float y, int team) {
 		super(handler, x, y, 3 * Tile.TILEWIDTH, 3 * Tile.TILEHEIGHT);
 		
 		bounds.x = 2;
 		bounds.y  = 2;
 		bounds.width = 44;
 		bounds.height = 44; 
+		health = 100;
+		this.team = team;
 	}
 
 	@Override
@@ -29,8 +31,7 @@ public class BasicTower extends Tower {
 
 	@Override
 	public void die() {
-		
-		
+		 
 	}
 	
 }
