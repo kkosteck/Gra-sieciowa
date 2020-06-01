@@ -12,16 +12,14 @@ import dev.kk.proz.ui.UIManager;
 
 public class GameState extends State {
 
-	private Player player;
 	private UIManager uiManager;
 	private Map basicMap;
 	
 	public GameState(Handler handler) {
 		super(handler);
 		
-		basicMap = new Map("resources/map/basicMap.txt");
+		basicMap = new Map(handler, "resources/map/basicMap.txt");
 		handler.setMap(basicMap);
-		player = new Player(handler, 0, 0);
 		
 		uiManager = new UIManager(handler);
 		handler.getMouseManager().setUIManager(uiManager);
@@ -39,16 +37,13 @@ public class GameState extends State {
 	@Override
 	public void tick() {
 		handler.getMouseManager().setUIManager(uiManager);
-		player.tick();
-		player.setSidePicked(super.getSide());
-		super.setSide(0);
+		basicMap.tick();
 		uiManager.tick();
 	}
 
 	@Override
 	public void render(Graphics g) {
 		basicMap.render(g);
-		player.render(g);
 		uiManager.render(g);
 	}
 	

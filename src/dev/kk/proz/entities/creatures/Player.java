@@ -5,10 +5,10 @@ import java.awt.image.BufferedImage;
 
 import dev.kk.proz.Handler;
 import dev.kk.proz.gfx.Assets;
+import dev.kk.proz.states.State;
 
 public class Player extends Creature {
 	
-	private int sidePicked = 0;
 	private BufferedImage moveDown = Assets.redPlayer_down;
 	private BufferedImage moveUp = Assets.redPlayer_up;
 	private BufferedImage moveLeft = Assets.redPlayer_left;
@@ -26,8 +26,7 @@ public class Player extends Creature {
 
 	@Override
 	public void tick() {
-		if(sidePicked == 1) {
-			System.out.println("1");
+		if(State.getSide() == 1) {
 			this.setX(256);
 			this.setY(344);
 			moveDown = Assets.redPlayer_down;
@@ -35,8 +34,8 @@ public class Player extends Creature {
 			moveLeft = Assets.redPlayer_left;
 			moveRight = Assets.redPlayer_right;
 			lastWay = moveRight;
-			sidePicked = 0;
-		}else if(sidePicked == 2) {
+			State.setSide(0);
+		}else if(State.getSide() == 2) {
 			this.setX(1024);
 			this.setY(344);
 			moveDown = Assets.bluePlayer_down;
@@ -44,7 +43,7 @@ public class Player extends Creature {
 			moveLeft = Assets.bluePlayer_left;
 			moveRight = Assets.bluePlayer_right;
 			lastWay = moveLeft;
-			sidePicked = 0;
+			State.setSide(0);
 		}
 		getInput();
 		move();
@@ -71,14 +70,6 @@ public class Player extends Creature {
 		g.drawImage(getCurrentWay(), (int)x, (int)y, width, height, null);
 		
 	}
-
-	public int getSidePicked() {
-		return sidePicked;
-	}
-
-	public void setSidePicked(int sidePicked) {
-		this.sidePicked = sidePicked;
-	}
 	
 	private BufferedImage getCurrentWay() {
 		if(xMove < 0) {
@@ -99,5 +90,11 @@ public class Player extends Creature {
 		}
 		else
 			return lastWay;
+	}
+
+	@Override
+	public void die() {
+		
+		
 	}
 }

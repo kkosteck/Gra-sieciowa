@@ -14,6 +14,8 @@ public class Assets {
 	public static BufferedImage[] startButton, exitButton;
 	public static BufferedImage redSideButton, blueSideButton;
 	
+	public static BufferedImage basicTower;
+	
 	public static void init() {
 		SpriteSheet bluePlayer = new SpriteSheet(ImageLoader.loadImage("/textures/bluePlayer.png"));
 		SpriteSheet redPlayer = new SpriteSheet(ImageLoader.loadImage("/textures/redPlayer.png"));
@@ -38,6 +40,8 @@ public class Assets {
 		blueCastle = tiles.crop(4*width, 0, width, height);
 		wallTile = tiles.crop(5*width, 0, width, height);
 		
+		
+		
 		startButton = new BufferedImage[2];
 		startButton[0] = buttons.crop(0, 0, width * 4, height * 2);
 		startButton[1] = buttons.crop(width * 4, 0, width * 4, height * 2);
@@ -49,5 +53,6 @@ public class Assets {
 		redSideButton = buttons.crop(0, height * 2, width * 4, height * 2);
 		blueSideButton = buttons.crop(width * 4, height * 2, width * 4, height * 2);
 		
+		basicTower = ImageLoader.loadImage("/textures/tower.png");
 	}
 }

@@ -6,23 +6,22 @@ import dev.kk.proz.tiles.Tile;
 
 public abstract class Creature extends Entity{
 
-	public static final int DEFUALT_HEALTH = 10;
 	public static final float DEFUALT_SPEED = 3.0f;
 	public static final int DEFUALT_CREATURE_WIDTH = 32, DEFUALT_CREATURE_HEIGHT = 32;
 	
-	protected int health;
 	protected float speed;
 	protected float xMove, yMove;
 	
 	public Creature(Handler handler, float x, float y, int width, int height) {
 		super(handler, x, y, width, height);
-		health = DEFUALT_HEALTH;
 		speed = DEFUALT_SPEED;
 	}
 	
 	public void move() {
-		moveX();
-		moveY();
+		if(!checkEntityCollisions(xMove, 0f))
+			moveX();
+		if(!checkEntityCollisions(0f, yMove))
+			moveY();
 	}
 	
 	public void moveX() {
