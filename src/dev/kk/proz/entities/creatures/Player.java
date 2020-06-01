@@ -1,25 +1,51 @@
 package dev.kk.proz.entities.creatures;
 
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
-import dev.kk.proz.Game;
 import dev.kk.proz.Handler;
 import dev.kk.proz.gfx.Assets;
 
 public class Player extends Creature {
 	
+	private int sidePicked = 0;
+	private BufferedImage moveDown = Assets.redPlayer_down;
+	private BufferedImage moveUp = Assets.redPlayer_up;
+	private BufferedImage moveLeft = Assets.redPlayer_left;
+	private BufferedImage moveRight = Assets.redPlayer_right;
+	private BufferedImage lastWay = Assets.redPlayer_down;
+	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFUALT_CREATURE_WIDTH, Creature.DEFUALT_CREATURE_HEIGHT);
 		
-		bounds.x = 12;
-		bounds.y  = 4;
-		bounds.width = 20;
-		bounds.height = 24;
+		bounds.x = 10;
+		bounds.y  = 7;
+		bounds.width = 12;
+		bounds.height = 18;
 	}
 
 	@Override
 	public void tick() {
+		if(sidePicked == 1) {
+			System.out.println("1");
+			this.setX(256);
+			this.setY(344);
+			moveDown = Assets.redPlayer_down;
+			moveUp = Assets.redPlayer_up;
+			moveLeft = Assets.redPlayer_left;
+			moveRight = Assets.redPlayer_right;
+			lastWay = moveRight;
+			sidePicked = 0;
+		}else if(sidePicked == 2) {
+			this.setX(1024);
+			this.setY(344);
+			moveDown = Assets.bluePlayer_down;
+			moveUp = Assets.bluePlayer_up;
+			moveLeft = Assets.bluePlayer_left;
+			moveRight = Assets.bluePlayer_right;
+			lastWay = moveLeft;
+			sidePicked = 0;
+		}
 		getInput();
 		move();
 		
@@ -42,8 +68,36 @@ public class Player extends Creature {
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(Assets.bluePlayer, (int)x, (int)y, width, height, null);
+		g.drawImage(getCurrentWay(), (int)x, (int)y, width, height, null);
 		
 	}
+
+	public int getSidePicked() {
+		return sidePicked;
+	}
+
+	public void setSidePicked(int sidePicked) {
+		this.sidePicked = sidePicked;
+	}
 	
+	private BufferedImage getCurrentWay() {
+		if(xMove < 0) {
+			lastWay = moveLeft;
+			return moveLeft;
+		}
+		else if(xMove > 0) {
+			lastWay = moveRight;
+			return moveRight;
+		}
+		else if(yMove > 0) {
+			lastWay = moveDown;
+			return moveDown;
+		}
+		else if (yMove < 0) {
+			lastWay = moveUp;
+			return moveUp;
+		}
+		else
+			return lastWay;
+	}
 }

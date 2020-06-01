@@ -8,7 +8,6 @@ import dev.kk.proz.utilities.Utilities;
 public class Map {
 
 	private int width, height;
-	private int spawnX, spawnY;
 	private int[][] tiles;
 	
 	public Map(String path) {
@@ -43,32 +42,14 @@ public class Map {
 		String[] tokens = file.split("\\s+");
 		width = Utilities.parseInt(tokens[0]);
 		height = Utilities.parseInt(tokens[1]);
-		spawnX = Utilities.parseInt(tokens[2]);
-		spawnY = Utilities.parseInt(tokens[3]);
 		
 		tiles = new int[width][height];
 		
 		for(int y = 0; y < height; y++) {
 			for(int x =0; x < width; x++) {
-				tiles[x][y] = Utilities.parseInt(tokens[x + y * width + 4]);
+				tiles[x][y] = Utilities.parseInt(tokens[x + y * width + 2]);
 			}
 		}
-	}
-
-	public int getSpawnX() {
-		return spawnX * Tile.TILEWIDTH;
-	}
-
-	public void setSpawnX(int spawnX) {
-		this.spawnX = spawnX;
-	}
-
-	public int getSpawnY() {
-		return spawnY * Tile.TILEHEIGHT;
-	}
-
-	public void setSpawnY(int spawnY) {
-		this.spawnY = spawnY;
 	}
 	
 }

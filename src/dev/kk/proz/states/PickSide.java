@@ -1,42 +1,44 @@
 package dev.kk.proz.states;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
-import dev.kk.proz.Game;
 import dev.kk.proz.Handler;
 import dev.kk.proz.gfx.Assets;
+import dev.kk.proz.maps.Map;
 import dev.kk.proz.ui.ClickListener;
-import dev.kk.proz.ui.UIButton;
 import dev.kk.proz.ui.UIManager;
+import dev.kk.proz.ui.UISimpleButton;
 
-public class MenuState extends State {
-	
+public class PickSide extends State{
+
 	private UIManager uiManager;
 	
-	public MenuState(Handler handler) {
+	public PickSide(Handler handler) {
 		super(handler);
+		
 		uiManager = new UIManager(handler);
-		handler.getMouseManager().setUIManager(uiManager);
 		
-		UIButton startButton = new UIButton(540, 200, 200, 100, Assets.startButton, new ClickListener(){
+		UISimpleButton redSide =  new UISimpleButton(320, 256, 256, 128, Assets.redSideButton, new ClickListener(){
 			@Override
 			public void onClick() {
 				handler.getMouseManager().setUIManager(null);
-				State.setState(handler.getGame().pickSide);
+				State.setSide(1);
+				State.setState(handler.getGame().gameState);
 		}});
 		
-		UIButton exitButton = new UIButton(540, 350, 200, 100, Assets.exitButton, new ClickListener(){
+		uiManager.addObject(redSide);
+		
+		UISimpleButton blueSide =  new UISimpleButton(704, 256, 256, 128, Assets.blueSideButton, new ClickListener(){
 			@Override
 			public void onClick() {
 				handler.getMouseManager().setUIManager(null);
-				System.exit(0);
+				State.setSide(2);
+				State.setState(handler.getGame().gameState);
 		}});
 		
-		uiManager.addObject(startButton);
-		uiManager.addObject(exitButton);
+		uiManager.addObject(blueSide);
 	}
-	
+
 	@Override
 	public void tick() {
 		handler.getMouseManager().setUIManager(uiManager);
@@ -45,8 +47,6 @@ public class MenuState extends State {
 
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.gray);
-		g.fillRect(0,0,1280,720);
 		uiManager.render(g);
 	}
 }

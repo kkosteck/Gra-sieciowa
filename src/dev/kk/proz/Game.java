@@ -1,18 +1,15 @@
 package dev.kk.proz;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 
 import dev.kk.proz.display.Display;
 import dev.kk.proz.gfx.Assets;
-import dev.kk.proz.gfx.ImageLoader;
-import dev.kk.proz.gfx.SpriteSheet;
 import dev.kk.proz.input.KeyManager;
 import dev.kk.proz.input.MouseManager;
 import dev.kk.proz.states.GameState;
 import dev.kk.proz.states.MenuState;
+import dev.kk.proz.states.PickSide;
 import dev.kk.proz.states.State;
 
 public class Game implements Runnable {
@@ -30,6 +27,7 @@ public class Game implements Runnable {
 	//states
 	public State gameState;
 	public State menuState;
+	public State pickSide;
 	
 	//input
 	private KeyManager keyManager;
@@ -56,7 +54,8 @@ public class Game implements Runnable {
 		Assets.init();
 		
 		handler = new Handler(this);
-		
+
+		pickSide = new PickSide(handler);
 		gameState = new GameState(handler);
 		menuState = new MenuState(handler);
 		State.setState(menuState);;
@@ -174,6 +173,5 @@ public class Game implements Runnable {
 	public void setDisplay(Display display) {
 		this.display = display;
 	}
-	
 	
 }
