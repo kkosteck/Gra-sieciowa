@@ -4,10 +4,10 @@ import java.awt.Graphics;
 
 import dev.kk.proz.Handler;
 import dev.kk.proz.entities.EntityManager;
-import dev.kk.proz.entities.creatures.Player;
 import dev.kk.proz.entities.towers.BasicTower;
 import dev.kk.proz.tiles.Tile;
-import dev.kk.proz.utilities.Utilities; 
+import dev.kk.proz.utilities.Utilities;
+import dev.kk.proz.utilities.Utilities.Teams; 
 
 public class Map {
 
@@ -19,16 +19,16 @@ public class Map {
 	
 	public Map(Handler handler, String path) {
 		this.handler = handler;
-		entityManager = new EntityManager(handler, new Player(handler, 0, 0));
+		entityManager = new EntityManager(handler);
 		
 		loadMap(path);
 		
 		for(int y = 0; y < height; y++) {//add initial towers
 			for(int x = 0; x < width; x++) {
 				if(getTile(x,y) == Tile.redTower)
-					entityManager.addEntity(new BasicTower(handler, (int) x * Tile.TILEWIDTH - 16, (int)y * Tile.TILEHEIGHT - 16, 1));
+					entityManager.addEntity(new BasicTower(handler, (int) x * Tile.TILEWIDTH - 16, (int)y * Tile.TILEHEIGHT - 16, Teams.RED));
 				if(getTile(x,y) == Tile.blueTower)
-					entityManager.addEntity(new BasicTower(handler, (int) x * Tile.TILEWIDTH - 16, (int)y * Tile.TILEHEIGHT - 16, 2));
+					entityManager.addEntity(new BasicTower(handler, (int) x * Tile.TILEWIDTH - 16, (int)y * Tile.TILEHEIGHT - 16, Teams.BLUE));
 			}	
 		}
 	}

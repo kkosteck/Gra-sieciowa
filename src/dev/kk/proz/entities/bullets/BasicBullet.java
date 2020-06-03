@@ -3,19 +3,19 @@ package dev.kk.proz.entities.bullets;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-
 import dev.kk.proz.Handler;
 import dev.kk.proz.entities.Entity;
 import dev.kk.proz.gfx.Assets;
+import dev.kk.proz.utilities.Utilities.Teams;
 
 public class BasicBullet extends Bullet {
 	
 	private BufferedImage texture;
 	private static final float ATTACK_SPEED = 8.0f;
 	private static final int DAMAGE = 100;
-	private int team;
+	private Teams team;
 
-	public BasicBullet(Handler handler, float x, float y, int moving, int team) {
+	public BasicBullet(Handler handler, float x, float y, int moving, Teams team) {
 		super(handler, x, y, 16, 16);
 		
 		this.team = team;

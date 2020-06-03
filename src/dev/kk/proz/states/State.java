@@ -2,13 +2,13 @@ package dev.kk.proz.states;
 
 import java.awt.Graphics;
 
-import dev.kk.proz.Game;
 import dev.kk.proz.Handler;
+import dev.kk.proz.utilities.Utilities.Teams;
 
 public abstract class State {
 	
 	private static State currentState = null;
-	private static int currentSide = 0;
+	private static Teams currentSide = Teams.NONE;
 	
 	public static void setState(State state) {
 		currentState = state;
@@ -18,11 +18,11 @@ public abstract class State {
 		return currentState;
 	}
 	
-	public static int getSide() {
+	public static Teams getSide() {
 		return currentSide;
 	}
 
-	public static void setSide(int currentSide) {
+	public static void setSide(Teams currentSide) {
 		State.currentSide = currentSide;
 	}
 

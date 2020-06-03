@@ -6,53 +6,33 @@ import java.awt.image.BufferedImage;
 import dev.kk.proz.Handler;
 import dev.kk.proz.entities.bullets.BasicBullet;
 import dev.kk.proz.gfx.Assets;
+import dev.kk.proz.maps.Map;
 import dev.kk.proz.states.State;
+import dev.kk.proz.utilities.Utilities.Teams;
 
 public class Player extends Creature {
-	
-	private BufferedImage moveDown = Assets.redPlayer_down;
-	private BufferedImage moveUp = Assets.redPlayer_up;
-	private BufferedImage moveLeft = Assets.redPlayer_left;
-	private BufferedImage moveRight = Assets.redPlayer_right;
-	private BufferedImage lastWay = Assets.redPlayer_down;
-	private int team; 
+
+	private BufferedImage moveUp = Assets.redPlayer[0];
+	private BufferedImage moveDown = Assets.redPlayer[1];
+	private BufferedImage moveLeft = Assets.redPlayer[2];
+	private BufferedImage moveRight = Assets.redPlayer[3];
+	private BufferedImage lastWay = Assets.redPlayer[0];
+	private Teams team = Teams.NONE; 
+	private String username = null;
 	
 	private long lastAttackTimer, attackCooldown = 250, attackTimer = attackCooldown;
 	
-	public Player(Handler handler, float x, float y) {
+	public Player(Handler handler, float x, float y, String username) {
 		super(handler, x, y, DEFUALT_CREATURE_WIDTH, DEFUALT_CREATURE_HEIGHT);
-		
 		bounds.x = 10;
 		bounds.y  = 7;
 		bounds.width = 12;
 		bounds.height = 18;
+		this.username = username;
 	}
 
 	@Override
 	public void tick() {
-		if(State.getSide() == 1) {
-			this.setX(256);
-			this.setY(344);
-			moveDown = Assets.redPlayer_down;
-			moveUp = Assets.redPlayer_up;
-			moveLeft = Assets.redPlayer_left;
-			moveRight = Assets.redPlayer_right;
-			lastWay = moveRight;
-			team = 1;
-			handler.getEntityManager().getEntities().get(0).setTeam(team);
-			State.setSide(0);
-		}else if(State.getSide() == 2) {
-			this.setX(1024);
-			this.setY(344);
-			moveDown = Assets.bluePlayer_down;
-			moveUp = Assets.bluePlayer_up;
-			moveLeft = Assets.bluePlayer_left;
-			moveRight = Assets.bluePlayer_right;
-			lastWay = moveLeft;
-			team = 2;
-			handler.getEntityManager().getEntities().get(0).setTeam(team);
-			State.setSide(0);
-		}
 		getInput();
 		move();
 		checkAttacks();
@@ -120,9 +100,34 @@ public class Player extends Creature {
 		attackTimer = 0;
 	}
 	
+	public String getUsername() {
+		return username;
+	}
+
 	@Override
 	public void die() {
-		
+			
+	}
+	public void respawn(Teams team) {
+		if(team == Teams.RED) {
+			this.setX(256);
+			this.setY(344);
+			moveUp = Assets.redPlayer[0];
+			moveDown = Assets.redPlayer[1];
+			moveLeft = Assets.redPlayer[2];
+			moveRight = Assets.redPlayer[3];
+			lastWay = moveRight;
+			team = Teams.RED;
+		}else if(team == Teams.BLUE) {
+			this.setX(1024);
+			this.setY(344);
+			moveUp = Assets.bluePlayer[0];
+			moveDown = Assets.bluePlayer[1];
+			moveLeft = Assets.bluePlayer[2];
+			moveRight = Assets.bluePlayer[3];
+			lastWay = moveLeft;
+			team = Teams.BLUE;
+		}
 		
 	}
 }

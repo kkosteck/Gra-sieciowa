@@ -4,14 +4,15 @@ import java.awt.Graphics;
 
 import dev.kk.proz.Handler;
 import dev.kk.proz.gfx.Assets;
-import dev.kk.proz.maps.Map;
 import dev.kk.proz.ui.ClickListener;
 import dev.kk.proz.ui.UIManager;
 import dev.kk.proz.ui.UISimpleButton;
+import dev.kk.proz.utilities.Utilities.Teams;
 
 public class PickSide extends State{
 
 	private UIManager uiManager;
+	private GameState gameState;
 	
 	public PickSide(Handler handler) {
 		super(handler);
@@ -22,7 +23,8 @@ public class PickSide extends State{
 			@Override
 			public void onClick() {
 				handler.getMouseManager().setUIManager(null);
-				State.setSide(1);
+				handler.getGame().gameState = new GameState(handler);
+				State.setSide(Teams.RED);
 				State.setState(handler.getGame().gameState);
 		}});
 		
@@ -32,7 +34,8 @@ public class PickSide extends State{
 			@Override
 			public void onClick() {
 				handler.getMouseManager().setUIManager(null);
-				State.setSide(2);
+				handler.getGame().gameState = new GameState(handler);
+				State.setSide(Teams.BLUE);
 				State.setState(handler.getGame().gameState);
 		}});
 		

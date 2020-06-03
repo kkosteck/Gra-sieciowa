@@ -32,4 +32,18 @@ public class Utilities {
 		}
 	}
 	
+	public static enum Teams {
+		NONE(0), RED(1), BLUE(2);
+		
+		private int teamId;
+		
+		private Teams(int teamId) {
+			this.teamId = teamId;
+		}
+		
+		public int getId() {
+			return teamId;
+		}
+	}
+	
 }

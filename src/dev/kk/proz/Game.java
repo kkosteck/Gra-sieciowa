@@ -7,9 +7,7 @@ import dev.kk.proz.display.Display;
 import dev.kk.proz.gfx.Assets;
 import dev.kk.proz.input.KeyManager;
 import dev.kk.proz.input.MouseManager;
-import dev.kk.proz.states.GameState;
 import dev.kk.proz.states.MenuState;
-import dev.kk.proz.states.PickSide;
 import dev.kk.proz.states.State;
 
 public class Game implements Runnable {
@@ -35,6 +33,7 @@ public class Game implements Runnable {
 	//Handler
 	private Handler handler;
 	
+	//multiplayer
 	
 	public Game(String title, int width, int height) {
 		this.width = width;
@@ -55,11 +54,9 @@ public class Game implements Runnable {
 		
 		handler = new Handler(this);
 
-		pickSide = new PickSide(handler);
-		gameState = new GameState(handler);
 		menuState = new MenuState(handler);
-		State.setState(menuState);;
-	}
+		State.setState(menuState);
+		}
 	
 	private void tick() {
 		keyManager.tick();
@@ -112,7 +109,7 @@ public class Game implements Runnable {
 			}
 			
 			if(timer >= 1e9) { //fps counter
-				System.out.println("FPS: " + ticks);
+				//System.out.println("FPS: " + ticks);
 				ticks = 0;
 				timer = 0;
 			}
@@ -122,21 +119,13 @@ public class Game implements Runnable {
 		stop();
 	}
 	
-	public KeyManager getKeyManager() {
-		return keyManager;
-	}
-	
-	public MouseManager getMouseManager() {
-		return mouseManager;
-	}
-	
-	
 	public synchronized void start() {//starting game loop
 		if(running)
 			return;
 		running = true;
+		
 		thread = new Thread(this);
-		thread.start();
+		thread.start(); 
 	}
 	
 	public synchronized void stop() { //stoping game loop
@@ -149,7 +138,15 @@ public class Game implements Runnable {
 			e.printStackTrace();
 		}
 	}
-
+	
+	public KeyManager getKeyManager() {
+		return keyManager;
+	}
+	
+	public MouseManager getMouseManager() {
+		return mouseManager;
+	}
+	
 	public int getWidth() {
 		return width;
 	}

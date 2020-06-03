@@ -23,6 +23,7 @@ public class MenuState extends State {
 			@Override
 			public void onClick() {
 				handler.getMouseManager().setUIManager(null);
+				handler.getGame().pickSide = new PickSide(handler);
 				State.setState(handler.getGame().pickSide);
 		}});
 		

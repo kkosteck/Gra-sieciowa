@@ -5,10 +5,11 @@ import java.awt.Graphics;
 import dev.kk.proz.Handler;
 import dev.kk.proz.gfx.Assets;
 import dev.kk.proz.tiles.Tile;
+import dev.kk.proz.utilities.Utilities.Teams;
 
 public class BasicTower extends Tower {
 
-	public BasicTower(Handler handler, float x, float y, int team) {
+	public BasicTower(Handler handler, float x, float y, Teams team) {
 		super(handler, x, y, 3 * Tile.TILEWIDTH, 3 * Tile.TILEHEIGHT);
 		
 		bounds.x = 2;

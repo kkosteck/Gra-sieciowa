@@ -9,14 +9,14 @@ import dev.kk.proz.entities.creatures.Player;
 public class EntityManager {
 	
 	private Handler handler;
-	private Player player;
+//	private Player player;
 	private ArrayList<Entity> entities;
 	
-	public EntityManager(Handler handler, Player player){
+	public EntityManager(Handler handler){
 		this.handler = handler;
-		this.player = player;
+//		this.player = player;
 		entities = new ArrayList<Entity>();
-		addEntity(player);
+//		addEntity(player);
 	}
 	
 	public void tick(){
@@ -48,13 +48,13 @@ public class EntityManager {
 		this.handler = handler;
 	}
 
-	public Player getPlayer() {
-		return player;
-	}
-
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
+//	public Player getPlayer() {
+//		return player;
+//	}
+//
+//	public void setPlayer(Player player) {
+//		this.player = player;
+//	}
 
 	public ArrayList<Entity> getEntities() {
 		return entities;

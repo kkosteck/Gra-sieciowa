@@ -6,8 +6,7 @@ public class Assets {
 	
 	private static final int width = 32, height = 32;
 	
-	public static BufferedImage bluePlayer_up, bluePlayer_down, bluePlayer_left, bluePlayer_right;
-	public static BufferedImage redPlayer_up, redPlayer_down, redPlayer_left, redPlayer_right;
+	public static BufferedImage[] bluePlayer, redPlayer;
 	
 	
 	public static BufferedImage grassTile, blueTower, redTower, blueCastle, redCastle, wallTile;
@@ -18,21 +17,23 @@ public class Assets {
 	public static BufferedImage basicBullet_upDown, basicBullet_leftRight;
 	
 	public static void init() {
-		SpriteSheet bluePlayer = new SpriteSheet(ImageLoader.loadImage("/textures/bluePlayer.png"));
-		SpriteSheet redPlayer = new SpriteSheet(ImageLoader.loadImage("/textures/redPlayer.png"));
+		SpriteSheet bluePlayerSheet = new SpriteSheet(ImageLoader.loadImage("/textures/bluePlayer.png"));
+		SpriteSheet redPlayerSheet = new SpriteSheet(ImageLoader.loadImage("/textures/redPlayer.png"));
 		SpriteSheet buttons = new SpriteSheet(ImageLoader.loadImage("/textures/buttons.png"));
 		SpriteSheet tiles = new SpriteSheet(ImageLoader.loadImage("/textures/tiles.png"));
 		SpriteSheet bullets = new SpriteSheet(ImageLoader.loadImage("/textures/bullets.png"));
 		
-		bluePlayer_right = bluePlayer.crop(0, 0, width, height);
-		bluePlayer_up = bluePlayer.crop(width, 0, width, height);
-		bluePlayer_left = bluePlayer.crop(2*width, 0, width, height);
-		bluePlayer_down = bluePlayer.crop(3*width, 0, width, height);
+		bluePlayer = new BufferedImage[4];
+		bluePlayer[3] = bluePlayerSheet.crop(0, 0, width, height);
+		bluePlayer[0] = bluePlayerSheet.crop(width, 0, width, height);
+		bluePlayer[2] = bluePlayerSheet.crop(2*width, 0, width, height);
+		bluePlayer[1] = bluePlayerSheet.crop(3*width, 0, width, height);
 		
-		redPlayer_right = redPlayer.crop(0, 0, width, height);
-		redPlayer_up = redPlayer.crop(width, 0, width, height);
-		redPlayer_left = redPlayer.crop(2*width, 0, width, height);
-		redPlayer_down = redPlayer.crop(3*width, 0, width, height);
+		redPlayer = new BufferedImage[4];
+		redPlayer[3] = redPlayerSheet.crop(0, 0, width, height);
+		redPlayer[0] = redPlayerSheet.crop(width, 0, width, height);
+		redPlayer[2] = redPlayerSheet.crop(2*width, 0, width, height);
+		redPlayer[1] = redPlayerSheet.crop(3*width, 0, width, height);
 		
 		
 		grassTile = tiles.crop(0, 0, width, height);
