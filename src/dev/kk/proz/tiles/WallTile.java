@@ -6,6 +6,7 @@ import dev.kk.proz.gfx.Assets;
 
 public class WallTile extends Tile{
 	
+	@SuppressWarnings("unused")
 	private int width, height;
 
 	public WallTile(int id) {

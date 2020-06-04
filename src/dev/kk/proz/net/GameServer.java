@@ -13,6 +13,9 @@ import dev.kk.proz.entities.creatures.PlayerMP;
 import dev.kk.proz.net.packets.Packet;
 import dev.kk.proz.net.packets.Packet.PacketTypes;
 import dev.kk.proz.net.packets.Packet00Login;
+import dev.kk.proz.net.packets.Packet01Disconnect;
+import dev.kk.proz.net.packets.Packet02Move;
+import dev.kk.proz.net.packets.Packet03Attack;
 
 public class GameServer extends Thread {
 	
@@ -39,11 +42,6 @@ public class GameServer extends Thread {
 				e.printStackTrace();
 			}
 			this.parsePacket(packet.getData(), packet.getAddress(), packet.getPort());
-//			String message = new String(packet.getData());
-//			System.out.println("CLIENT [" + packet.getAddress().getHostAddress() + ":" + packet.getPort()+ "]> " + message); 
-//			if(message.trim().equalsIgnoreCase("ping")) {//if pinged than pong
-//				sendData("pong".getBytes(), packet.getAddress(), packet.getPort());
-//			}
 			
 		}
 	}
@@ -59,13 +57,22 @@ public class GameServer extends Thread {
 			break;
 		case LOGIN:
 			packet = new Packet00Login(data);
-			System.out.println("["+address.getHostAddress()+":"+port+"]"+((Packet00Login) packet).getUsername()+ " has connected.");
-			
-			PlayerMP player = new PlayerMP(handler, 0, 0, ((Packet00Login) packet).getUsername(), address, port);
+			System.out.println("["+address.getHostAddress()+":"+port+"]"+((Packet00Login) packet).getUsername()+" has connected.");
+			PlayerMP player = new PlayerMP(handler, ((Packet00Login) packet).getX(), ((Packet00Login) packet).getY(), ((Packet00Login) packet).getUsername(), ((Packet00Login) packet).getTeam(), address, port);
 			this.addConnection(player, (Packet00Login) packet);
 			break;
 		case DISCONNECT:
+            packet = new Packet01Disconnect(data);
+            System.out.println("[" + address.getHostAddress() + ":" + port + "] " + ((Packet01Disconnect) packet).getUsername() + " has left...");
+            this.removeConnection((Packet01Disconnect) packet);
 			break;
+		case MOVE:
+			packet = new Packet02Move(data);
+			this.handleMove((Packet02Move)packet);
+			break;
+		case ATTACK:
+			packet = new Packet03Attack(data);
+			packet.writeData(this);
 		}
 	}
 
@@ -84,12 +91,46 @@ public class GameServer extends Thread {
 				// relay to the current connected player that there is a new player
 				sendData(packet.getData(), p.ipAddress, p.port);
 				// relay to the new player that the currently connect player exists
-				packet = new Packet00Login(p.getUsername());
-				sendData(packet.getData(), player.ipAddress, player.port);
+				Packet00Login packetPlayer = new Packet00Login(p.getUsername(), p.getX(), p.getY(), p.getTeam());
+				sendData(packetPlayer.getData(), player.ipAddress, player.port);
 			}
 		}
 		if(!alreadyConnected) {
 			this.connectedPlayers.add(player);
+		}
+	}
+
+	private void removeConnection(Packet01Disconnect packet) {
+		this.connectedPlayers.remove(getPlayerMPIndex(packet.getUsername()));
+		packet.writeData(this);
+	}
+
+	private int getPlayerMPIndex(String username) {
+		int index = 0;
+		for(PlayerMP player : this.connectedPlayers) {
+			if(player.getUsername().equals(username))
+				break;
+			index++;
+		}
+		return index;
+	}
+	
+	public PlayerMP getPlayerMP(String username) {
+	    for (PlayerMP player : this.connectedPlayers) {
+	        if (player.getUsername().equals(username)) {
+	            return player;
+	        }
+	    }
+	    return null;
+	}
+
+	private void handleMove(Packet02Move packet) {
+		if(getPlayerMP(packet.getUsername()) != null) {
+			int index = getPlayerMPIndex(packet.getUsername());
+			PlayerMP player = this.connectedPlayers.get(index);
+			player.setxMove(packet.getX());
+			player.setyMove(packet.getY());
+			packet.writeData(this);
 		}
 	}
 

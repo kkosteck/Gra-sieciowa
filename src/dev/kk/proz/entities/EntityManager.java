@@ -4,19 +4,17 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import dev.kk.proz.Handler;
-import dev.kk.proz.entities.creatures.Player;
+import dev.kk.proz.entities.creatures.PlayerMP;
 
 public class EntityManager {
 	
+	@SuppressWarnings("unused")
 	private Handler handler;
-//	private Player player;
 	private ArrayList<Entity> entities;
 	
 	public EntityManager(Handler handler){
 		this.handler = handler;
-//		this.player = player;
 		entities = new ArrayList<Entity>();
-//		addEntity(player);
 	}
 	
 	public void tick(){
@@ -39,29 +37,41 @@ public class EntityManager {
 	}
 	
 	//GETTERS SETTERS
-
-	public Handler getHandler() {
-		return handler;
+	public void removePlayerMP(String username) {
+		int index = 0;
+		for(Entity e : entities) {
+			if(e instanceof PlayerMP && ((PlayerMP)e).getUsername().equals(username)) {
+				break;
+			}
+			index++;
+		}
+		this.entities.remove(index);
+	}
+	
+	public synchronized void movePlayer(String username, float xMove, float yMove) {
+		int index = getPlayerMPIndex(username);
+		PlayerMP player = (PlayerMP) entities.get(index);
+		player.setxMove(xMove);
+		player.setyMove(yMove);
 	}
 
-	public void setHandler(Handler handler) {
-		this.handler = handler;
-	}
-
-//	public Player getPlayer() {
-//		return player;
-//	}
-//
-//	public void setPlayer(Player player) {
-//		this.player = player;
-//	}
-
-	public ArrayList<Entity> getEntities() {
-		return entities;
+	private int getPlayerMPIndex(String username) {
+	    int index = 0;
+	    for (Entity e : entities) {
+	        if (e instanceof PlayerMP && ((PlayerMP) e).getUsername().equals(username)) {
+	            break;
+	        }
+	        index++;
+	    }
+	    return index;
 	}
 
 	public void setEntities(ArrayList<Entity> entities) {
 		this.entities = entities;
 	}
 
+	public ArrayList<Entity> getEntities() {
+		return entities;
+	}
+	
 }

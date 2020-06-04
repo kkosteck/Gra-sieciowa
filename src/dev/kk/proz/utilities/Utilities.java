@@ -3,6 +3,8 @@ package dev.kk.proz.utilities;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Utilities {
 
@@ -32,17 +34,27 @@ public class Utilities {
 		}
 	}
 	
-	public static enum Teams {
+	public enum Teams {
 		NONE(0), RED(1), BLUE(2);
 		
-		private int teamId;
+		private int id;
+		private static Map<Object, Object> map = new HashMap<>();
 		
-		private Teams(int teamId) {
-			this.teamId = teamId;
+		private Teams(int id) {
+			this.id = id;
 		}
 		
+		static {
+	        for (Teams teams : Teams.values()) {
+	            map.put(teams.id, teams);
+	        }
+		}
+		
+		public static Teams valueOf(int teams) {
+	        return (Teams) map.get(teams);
+	    }
 		public int getId() {
-			return teamId;
+			return id;
 		}
 	}
 	

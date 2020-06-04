@@ -3,7 +3,6 @@ package dev.kk.proz.states;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import dev.kk.proz.Game;
 import dev.kk.proz.Handler;
 import dev.kk.proz.gfx.Assets;
 import dev.kk.proz.ui.ClickListener;

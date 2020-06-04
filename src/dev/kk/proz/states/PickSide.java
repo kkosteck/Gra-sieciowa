@@ -12,7 +12,6 @@ import dev.kk.proz.utilities.Utilities.Teams;
 public class PickSide extends State{
 
 	private UIManager uiManager;
-	private GameState gameState;
 	
 	public PickSide(Handler handler) {
 		super(handler);
@@ -23,8 +22,8 @@ public class PickSide extends State{
 			@Override
 			public void onClick() {
 				handler.getMouseManager().setUIManager(null);
-				handler.getGame().gameState = new GameState(handler);
 				State.setSide(Teams.RED);
+				handler.getGame().gameState = new GameState(handler);
 				State.setState(handler.getGame().gameState);
 		}});
 		
@@ -34,8 +33,8 @@ public class PickSide extends State{
 			@Override
 			public void onClick() {
 				handler.getMouseManager().setUIManager(null);
-				handler.getGame().gameState = new GameState(handler);
 				State.setSide(Teams.BLUE);
+				handler.getGame().gameState = new GameState(handler);
 				State.setState(handler.getGame().gameState);
 		}});
 		

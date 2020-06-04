@@ -13,6 +13,7 @@ public class Map {
 
 	private int width, height;
 	private int[][] tiles;
+	@SuppressWarnings("unused")
 	private Handler handler;
 	
 	private EntityManager entityManager;
@@ -25,10 +26,16 @@ public class Map {
 		
 		for(int y = 0; y < height; y++) {//add initial towers
 			for(int x = 0; x < width; x++) {
-				if(getTile(x,y) == Tile.redTower)
-					entityManager.addEntity(new BasicTower(handler, (int) x * Tile.TILEWIDTH - 16, (int)y * Tile.TILEHEIGHT - 16, Teams.RED));
-				if(getTile(x,y) == Tile.blueTower)
-					entityManager.addEntity(new BasicTower(handler, (int) x * Tile.TILEWIDTH - 16, (int)y * Tile.TILEHEIGHT - 16, Teams.BLUE));
+				if(getTile(x,y) == Tile.redTower) {
+					BasicTower tower = new BasicTower(handler, (int) x * Tile.TILEWIDTH - 16, (int)y * Tile.TILEHEIGHT - 16);
+					tower.setTeam(Teams.RED);
+					entityManager.addEntity(tower);
+				}
+				if(getTile(x,y) == Tile.blueTower) {
+					BasicTower tower = new BasicTower(handler, (int) x * Tile.TILEWIDTH - 16, (int)y * Tile.TILEHEIGHT - 16);
+					tower.setTeam(Teams.BLUE);
+					entityManager.addEntity(tower);
+				}
 			}	
 		}
 	}

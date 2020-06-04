@@ -3,6 +3,8 @@ package dev.kk.proz.input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import dev.kk.proz.Handler;
+
 public class KeyManager implements KeyListener {
 
 	private boolean[] keys;
@@ -10,7 +12,8 @@ public class KeyManager implements KeyListener {
 	public boolean attackTrigger;
 	
 	
-	public KeyManager() {
+	public KeyManager(Handler handler) {
+		handler.getGame().getDisplay().getFrame().addKeyListener(this);
 		keys = new boolean[256];
 	}
 	
@@ -20,7 +23,6 @@ public class KeyManager implements KeyListener {
 		left = keys[KeyEvent.VK_A];
 		right = keys[KeyEvent.VK_D];
 		attackTrigger = keys[KeyEvent.VK_SPACE];
-	
 	}
 	
 	@Override

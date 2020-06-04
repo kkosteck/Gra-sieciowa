@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import dev.kk.proz.Handler;
 import dev.kk.proz.entities.Entity;
+import dev.kk.proz.entities.creatures.Player;
 import dev.kk.proz.gfx.Assets;
 import dev.kk.proz.utilities.Utilities.Teams;
 
@@ -72,8 +73,12 @@ public class BasicBullet extends Bullet {
 			if(e.equals(this))
 				continue;
 			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xMove, yMove))){
-				if(e.getTeam() != team) 
+				if(e instanceof Player && ((Player) e).getTeam() != team) {
 					e.hurt(DAMAGE);
+				}
+				else if(!(e instanceof Player)) {
+					e.hurt(DAMAGE);
+				}
 				active = false;
 			}
 		}

@@ -8,13 +8,16 @@ import dev.kk.proz.Handler;
 import dev.kk.proz.entities.creatures.Player;
 import dev.kk.proz.entities.creatures.PlayerMP;
 import dev.kk.proz.gfx.Assets;
+import dev.kk.proz.input.KeyManager;
 import dev.kk.proz.maps.Map;
 import dev.kk.proz.net.GameClient;
 import dev.kk.proz.net.GameServer;
 import dev.kk.proz.net.packets.Packet00Login;
+import dev.kk.proz.net.packets.Packet01Disconnect;
 import dev.kk.proz.ui.ClickListener;
 import dev.kk.proz.ui.UIButton;
 import dev.kk.proz.ui.UIManager;
+import dev.kk.proz.utilities.Utilities.Teams;
 
 public class GameState extends State {
 
@@ -24,31 +27,41 @@ public class GameState extends State {
 	//multiplayer
 	private GameClient socketClient;
 	private GameServer socketServer;
-	private Player player;
+	public Player player;
+	private float spawnX = 50, spawnY = 50;
+	private KeyManager keyManager;
 	
 	public GameState(Handler handler) {
 		super(handler);	
-		
+
 		//multiplayer
 		if(JOptionPane.showConfirmDialog(null, "Do you want to run the server?") == 0) {
 			socketServer = new GameServer(handler);
 			socketServer.start();
+			handler.setSocketServer(socketServer);
 		}
-		socketClient = new GameClient(handler, "localhost");
+		socketClient = new GameClient(handler, JOptionPane.showInputDialog("Enter a server ip"));
 		socketClient.start();
-		
+
 		basicMap = new Map(handler, "resources/map/basicMap.txt");
+		keyManager = new KeyManager(handler);
 		handler.setMap(basicMap);
-		player = new PlayerMP(handler, 0, 0, JOptionPane.showInputDialog("Enter a username"), null, -1);
+		
+		if(State.getSide() == Teams.RED) {
+			spawnX = 256;
+			spawnY = 344;
+		}else if(State.getSide() == Teams.BLUE) {
+			spawnX = 1024;
+			spawnY = 344;
+		}
+		player = new PlayerMP(handler, keyManager, spawnX, spawnY, JOptionPane.showInputDialog("Enter a username"), State.getSide(), null, -1);
 		basicMap.getEntityManager().addEntity(player);
-		Packet00Login loginPacket = new Packet00Login(player.getUsername());
+		Packet00Login loginPacket = new Packet00Login(player.getUsername(), player.getX(), player.getY(), player.getTeam());
 		if(socketServer != null) {
 			socketServer.addConnection((PlayerMP) player, loginPacket);
 		}
-//		socketClient.sendData("ping".getBytes());
 		loginPacket.writeData(socketClient);
-		
-		player.respawn(State.getSide());
+		handler.setSocketClient(socketClient);
 		
 		uiManager = new UIManager(handler);
 		handler.getMouseManager().setUIManager(uiManager);
@@ -58,6 +71,9 @@ public class GameState extends State {
 			public void onClick() {
 				handler.getMouseManager().setUIManager(null);
 				State.setState(handler.getGame().menuState);
+				
+				Packet01Disconnect packet = new Packet01Disconnect(player.getUsername());
+		        packet.writeData(socketClient);
 		}});
 		
 		uiManager.addObject(exitButton);
@@ -75,5 +91,4 @@ public class GameState extends State {
 		basicMap.render(g);
 		uiManager.render(g);
 	}
-	
 }

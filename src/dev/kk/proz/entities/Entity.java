@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import dev.kk.proz.Handler;
-import dev.kk.proz.utilities.Utilities.Teams;
 
 public abstract class Entity {
 
@@ -15,7 +14,6 @@ public abstract class Entity {
 	protected Rectangle bounds;
 	protected int health;
 	protected boolean active = true;
-	protected Teams team;
 	
 	public Entity(Handler handler, float x, float y, int width, int height) {
 		this.handler = handler;
@@ -24,8 +22,6 @@ public abstract class Entity {
 		this.width = width;
 		this.height = height;
 		health = DEFUALT_HEALTH;
-		team = Teams.NONE;
-		
 		bounds = new Rectangle(0,0,width,height);
 	}
 	
@@ -91,14 +87,6 @@ public abstract class Entity {
 
 	public void setHeight(int height) {
 		this.height = height;
-	}
-
-	public Teams getTeam() {
-		return team;
-	}
-
-	public void setTeam(Teams team) {
-		this.team = team;
 	}
 	
 }

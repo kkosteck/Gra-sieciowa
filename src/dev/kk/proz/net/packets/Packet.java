@@ -6,7 +6,7 @@ import dev.kk.proz.net.GameServer;
 public abstract class Packet {
 
 	public static enum PacketTypes {
-		INVALID(-1), LOGIN(00), DISCONNECT(01);
+		INVALID(-1), LOGIN(00), DISCONNECT(01), MOVE(02), ATTACK(03);
 		
 		private int packetId;
 		private PacketTypes(int packetId) {
