@@ -5,7 +5,6 @@ import java.awt.image.BufferStrategy;
 
 import dev.kk.proz.display.Display;
 import dev.kk.proz.gfx.Assets;
-import dev.kk.proz.input.KeyManager;
 import dev.kk.proz.input.MouseManager;
 import dev.kk.proz.states.MenuState;
 import dev.kk.proz.states.State;
@@ -26,9 +25,10 @@ public class Game implements Runnable {
 	public State gameState;
 	public State menuState;
 	public State pickSide;
+	public State gameOver;
 
 	// input
-	private KeyManager keyManager;
+//	private KeyManager keyManager;
 	private MouseManager mouseManager;
 	// Handler
 	private Handler handler;
@@ -135,9 +135,9 @@ public class Game implements Runnable {
 		}
 	}
 
-	public KeyManager getKeyManager() {
-		return keyManager;
-	}
+//	public KeyManager getKeyManager() {
+//		return keyManager;
+//	}
 
 	public MouseManager getMouseManager() {
 		return mouseManager;

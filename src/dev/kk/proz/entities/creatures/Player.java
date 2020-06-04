@@ -6,8 +6,11 @@ import java.awt.image.BufferedImage;
 import dev.kk.proz.Handler;
 import dev.kk.proz.gfx.Assets;
 import dev.kk.proz.input.KeyManager;
+import dev.kk.proz.net.packets.Packet01Disconnect;
 import dev.kk.proz.net.packets.Packet02Move;
 import dev.kk.proz.net.packets.Packet03Attack;
+import dev.kk.proz.states.GameOver;
+import dev.kk.proz.states.State;
 import dev.kk.proz.utilities.Utilities.Teams;
 
 public class Player extends Creature {
@@ -33,7 +36,6 @@ public class Player extends Creature {
 		this.keyManager = keyManager;
 		this.team = team;
 		respawn(this.team);
-		
 	}
 
 	@Override
@@ -42,10 +44,10 @@ public class Player extends Creature {
 			keyManager.tick();
 			getInput();
 			checkAttacks();
+			Packet02Move packet = new Packet02Move(getUsername(), xMove , yMove);
+			packet.writeData(handler.getSocketClient());
 		}
 		move();
-		Packet02Move packet = new Packet02Move(getUsername(), xMove , yMove);
-		packet.writeData(handler.getSocketClient());
 	}
 	
 	@Override
@@ -105,7 +107,11 @@ public class Player extends Creature {
 
 	@Override
 	public void die() {
-			
+		handler.getMouseManager().setUIManager(null);
+		handler.getGame().gameOver = new GameOver(handler);
+		State.setState(handler.getGame().gameOver);
+		Packet01Disconnect packet = new Packet01Disconnect(this.username);
+        packet.writeData(handler.getSocketClient());
 	}
 	private BufferedImage getCurrentWay() {
 		if(xMove < 0) {

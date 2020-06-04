@@ -9,6 +9,7 @@ import dev.kk.proz.entities.creatures.Player;
 import dev.kk.proz.entities.creatures.PlayerMP;
 import dev.kk.proz.gfx.Assets;
 import dev.kk.proz.input.KeyManager;
+import dev.kk.proz.input.WindowManager;
 import dev.kk.proz.maps.Map;
 import dev.kk.proz.net.GameClient;
 import dev.kk.proz.net.GameServer;
@@ -30,6 +31,7 @@ public class GameState extends State {
 	public Player player;
 	private float spawnX = 50, spawnY = 50;
 	private KeyManager keyManager;
+	private WindowManager windowManager;
 	
 	public GameState(Handler handler) {
 		super(handler);	
@@ -62,6 +64,8 @@ public class GameState extends State {
 		}
 		loginPacket.writeData(socketClient);
 		handler.setSocketClient(socketClient);
+		
+		windowManager = new WindowManager(handler, player.getUsername());
 		
 		uiManager = new UIManager(handler);
 		handler.getMouseManager().setUIManager(uiManager);

@@ -18,46 +18,46 @@ public class EntityManager {
 	}
 	
 	public void tick(){
-		for(int i = 0;i < entities.size();i++){
-			Entity e = entities.get(i);
+		for(int i = 0;i < getEntities().size();i++){
+			Entity e = getEntities().get(i);
 			e.tick();
 			if(!e.isActive())
-				entities.remove(e);
+				getEntities().remove(e);
 		}
 	}
 	
 	public void render(Graphics g){
-		for(Entity e : entities){
+		for(Entity e : getEntities()){
 			e.render(g);
 		}
 	}
 	
 	public void addEntity(Entity e){
-		entities.add(e);
+		getEntities().add(e);
 	}
 	
 	//GETTERS SETTERS
 	public void removePlayerMP(String username) {
 		int index = 0;
-		for(Entity e : entities) {
+		for(Entity e : getEntities()) {
 			if(e instanceof PlayerMP && ((PlayerMP)e).getUsername().equals(username)) {
 				break;
 			}
 			index++;
 		}
-		this.entities.remove(index);
+		getEntities().remove(index);
 	}
 	
 	public synchronized void movePlayer(String username, float xMove, float yMove) {
 		int index = getPlayerMPIndex(username);
-		PlayerMP player = (PlayerMP) entities.get(index);
+		PlayerMP player = (PlayerMP) getEntities().get(index);
 		player.setxMove(xMove);
 		player.setyMove(yMove);
 	}
 
 	private int getPlayerMPIndex(String username) {
 	    int index = 0;
-	    for (Entity e : entities) {
+	    for (Entity e : getEntities()) {
 	        if (e instanceof PlayerMP && ((PlayerMP) e).getUsername().equals(username)) {
 	            break;
 	        }
@@ -66,11 +66,7 @@ public class EntityManager {
 	    return index;
 	}
 
-	public void setEntities(ArrayList<Entity> entities) {
-		this.entities = entities;
-	}
-
-	public ArrayList<Entity> getEntities() {
+	public synchronized ArrayList<Entity> getEntities() {
 		return entities;
 	}
 	
