@@ -88,5 +88,17 @@ public abstract class Entity {
 	public void setHeight(int height) {
 		this.height = height;
 	}
+
+	public int getHealth() {
+		return health;
+	}
+
+	public void setHealth(int health) {
+		this.health = health;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 	
 }

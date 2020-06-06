@@ -107,12 +107,14 @@ public class Player extends Creature {
 
 	@Override
 	public void die() {
-		handler.getMouseManager().setUIManager(null);
-		handler.getGame().gameOver = new GameOver(handler);
-		State.setState(handler.getGame().gameOver);
-		Packet01Disconnect packet = new Packet01Disconnect(this.username);
-        packet.writeData(handler.getSocketClient());
+		
 	}
+	@Override
+	public void hurt(int amount) {
+		health -=amount;
+	}
+
+	
 	private BufferedImage getCurrentWay() {
 		if(xMove < 0) {
 			lastWay = moveLeft;

@@ -88,6 +88,16 @@ public class GameState extends State {
 		handler.getMouseManager().setUIManager(uiManager);
 		basicMap.tick();
 		uiManager.tick();
+		
+		if(player.getHealth() <= 0) {
+			handler.getMouseManager().setUIManager(null);
+			handler.getGame().gameOver = new GameOver(handler);
+			State.setState(handler.getGame().gameOver);
+			
+			Packet01Disconnect packet = new Packet01Disconnect(player.getUsername());
+	        packet.writeData(handler.getSocketClient());
+			player.setActive(false);
+		}
 	}
 
 	@Override
