@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import dev.kk.proz.Handler;
 import dev.kk.proz.entities.EntityManager;
 import dev.kk.proz.entities.towers.BasicTower;
+import dev.kk.proz.entities.towers.Castle;
 import dev.kk.proz.tiles.Tile;
 import dev.kk.proz.utilities.Utilities;
 import dev.kk.proz.utilities.Utilities.Teams; 
@@ -27,17 +28,21 @@ public class Map {
 		for(int y = 0; y < height; y++) {//add initial towers
 			for(int x = 0; x < width; x++) {
 				if(getTile(x,y) == Tile.redTower) {
-					BasicTower tower = new BasicTower(handler, (int) x * Tile.TILEWIDTH - 16, (int)y * Tile.TILEHEIGHT - 16);
+					BasicTower tower = new BasicTower(handler, (int) x * Tile.TILEWIDTH - 16, (int)y * Tile.TILEHEIGHT - 16, Teams.RED);
 					tower.setTeam(Teams.RED);
 					entityManager.addEntity(tower);
 				}
 				if(getTile(x,y) == Tile.blueTower) {
-					BasicTower tower = new BasicTower(handler, (int) x * Tile.TILEWIDTH - 16, (int)y * Tile.TILEHEIGHT - 16);
+					BasicTower tower = new BasicTower(handler, (int) x * Tile.TILEWIDTH - 16, (int)y * Tile.TILEHEIGHT - 16, Teams.BLUE);
 					tower.setTeam(Teams.BLUE);
 					entityManager.addEntity(tower);
 				}
 			}	
 		}
+		Castle redCastle = new Castle(handler, 2 * Tile.TILEWIDTH - 16, 20 * Tile.TILEHEIGHT - 16, Teams.RED);
+		entityManager.addEntity(redCastle);
+		Castle blueCastle = new Castle(handler, 76 * Tile.TILEWIDTH - 16, 20 * Tile.TILEHEIGHT - 16, Teams.BLUE);
+		entityManager.addEntity(blueCastle);
 	}
 	
 	public void tick() {

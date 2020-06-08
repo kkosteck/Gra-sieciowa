@@ -10,6 +10,8 @@ public class Tile {
 	public static Tile blueTower = new BlueTower(1);
 	public static Tile redTower = new RedTower(2);
 	public static Tile wallTile = new WallTile(3);
+	public static Tile blueHealingTile = new BlueHealingTile(4);
+	public static Tile redHealingTile = new RedHealingTile(5);
 	
 	
 	//class

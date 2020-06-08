@@ -8,11 +8,22 @@ public abstract class Tower extends Entity{
 
 	public static final float DEFUALT_ATTACK_SPEED = 3.0f;
 	public static final int DEFUALT_TOWER_WIDTH = 32, DEFUALT_TOWER_HEIGHT = 32;
-	public static final Teams DEFUALT_TEAM = Teams.NONE;
+	protected Teams team = Teams.NONE;
 	
 	
-	public Tower(Handler handler, float x, float y, int width, int height) {
+	public Tower(Handler handler, float x, float y, int width, int height, Teams team) {
 		super(handler, x, y, width, height);
+		this.team = team;
+	}
+
+
+	public Teams getTeam() {
+		return team;
+	}
+
+
+	public void setTeam(Teams team) {
+		this.team = team;
 	}	
 	
 	

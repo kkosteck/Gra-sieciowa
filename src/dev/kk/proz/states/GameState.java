@@ -16,6 +16,7 @@ import dev.kk.proz.net.GameServer;
 import dev.kk.proz.net.packets.Packet00Login;
 import dev.kk.proz.net.packets.Packet01Disconnect;
 import dev.kk.proz.ui.ClickListener;
+import dev.kk.proz.ui.HealthBar;
 import dev.kk.proz.ui.UIButton;
 import dev.kk.proz.ui.UIManager;
 import dev.kk.proz.utilities.Utilities.Teams;
@@ -32,6 +33,7 @@ public class GameState extends State {
 	private float spawnX = 50, spawnY = 50;
 	private KeyManager keyManager;
 	private WindowManager windowManager;
+	private HealthBar playerHPBar;
 	
 	public GameState(Handler handler) {
 		super(handler);	
@@ -57,6 +59,7 @@ public class GameState extends State {
 			spawnY = 344;
 		}
 		player = new PlayerMP(handler, keyManager, spawnX, spawnY, JOptionPane.showInputDialog("Enter a username"), State.getSide(), null, -1);
+		
 		basicMap.getEntityManager().addEntity(player);
 		Packet00Login loginPacket = new Packet00Login(player.getUsername(), player.getX(), player.getY(), player.getTeam());
 		if(socketServer != null) {
@@ -79,14 +82,18 @@ public class GameState extends State {
 				Packet01Disconnect packet = new Packet01Disconnect(player.getUsername());
 		        packet.writeData(socketClient);
 		}});
-		
 		uiManager.addObject(exitButton);
+		
+		System.out.println(player.getTeam());
+		playerHPBar = new HealthBar(0, 0, 128, 32, player.getHealth(), player.getTeam());
+		uiManager.addObject(playerHPBar);
 	}
 	
 	@Override
 	public void tick() {
 		handler.getMouseManager().setUIManager(uiManager);
 		basicMap.tick();
+		playerHPBar.setValue(player.getHealth());
 		uiManager.tick();
 		
 		if(player.getHealth() <= 0) {
@@ -104,5 +111,9 @@ public class GameState extends State {
 	public void render(Graphics g) {
 		basicMap.render(g);
 		uiManager.render(g);
+	}
+
+	public Player getPlayer() {
+		return player;
 	}
 }

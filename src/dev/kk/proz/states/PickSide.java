@@ -23,7 +23,8 @@ public class PickSide extends State{
 			public void onClick() {
 				handler.getMouseManager().setUIManager(null);
 				State.setSide(Teams.RED);
-				handler.getGame().gameState = new GameState(handler);
+//				if(handler.getGame().gameState == null)
+					handler.getGame().gameState = new GameState(handler);
 				State.setState(handler.getGame().gameState);
 		}});
 		
@@ -34,7 +35,8 @@ public class PickSide extends State{
 			public void onClick() {
 				handler.getMouseManager().setUIManager(null);
 				State.setSide(Teams.BLUE);
-				handler.getGame().gameState = new GameState(handler);
+//				if(handler.getGame().gameState == null)
+					handler.getGame().gameState = new GameState(handler);
 				State.setState(handler.getGame().gameState);
 		}});
 		

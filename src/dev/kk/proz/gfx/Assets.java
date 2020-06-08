@@ -9,12 +9,13 @@ public class Assets {
 	public static BufferedImage[] bluePlayer, redPlayer;
 	
 	
-	public static BufferedImage grassTile, blueTower, redTower, blueCastle, redCastle, wallTile;
+	public static BufferedImage grassTile, blueTower, redTower, redHealTile, blueHealTile, wallTile;
 	public static BufferedImage[] startButton, exitButton, tryAgainButton;
 	public static BufferedImage redSideButton, blueSideButton;
 	
-	public static BufferedImage basicTower;
+	public static BufferedImage blueBasicTower, redBasicTower;
 	public static BufferedImage basicBullet_upDown, basicBullet_leftRight;
+	public static BufferedImage castle;
 	
 	public static void init() {
 		SpriteSheet bluePlayerSheet = new SpriteSheet(ImageLoader.loadImage("/textures/bluePlayer.png"));
@@ -22,6 +23,9 @@ public class Assets {
 		SpriteSheet buttons = new SpriteSheet(ImageLoader.loadImage("/textures/buttons.png"));
 		SpriteSheet tiles = new SpriteSheet(ImageLoader.loadImage("/textures/tiles.png"));
 		SpriteSheet bullets = new SpriteSheet(ImageLoader.loadImage("/textures/bullets.png"));
+		SpriteSheet towers = new SpriteSheet(ImageLoader.loadImage("/textures/towers.png"));
+		
+		castle = ImageLoader.loadImage("/textures/castle.png");
 		
 		bluePlayer = new BufferedImage[4];
 		bluePlayer[3] = bluePlayerSheet.crop(0, 0, width, height);
@@ -39,8 +43,8 @@ public class Assets {
 		grassTile = tiles.crop(0, 0, width, height);
 		blueTower = tiles.crop(width, 0, width, height);
 		redTower = tiles.crop(2*width, 0, width, height);
-		redCastle = tiles.crop(3*width, 0, width, height);
-		blueCastle = tiles.crop(4*width, 0, width, height);
+		redHealTile = tiles.crop(3*width, 0, width, height);
+		blueHealTile = tiles.crop(4*width, 0, width, height);
 		wallTile = tiles.crop(5*width, 0, width, height);
 		
 		basicBullet_upDown = bullets.crop(0, 0, width / 2, height / 2);
@@ -61,6 +65,7 @@ public class Assets {
 		tryAgainButton[0] = buttons.crop(width * 8, height * 2, width * 4, height * 2);
 		tryAgainButton[1] = buttons.crop(width * 12, height * 2, width * 4, height * 2);
 		
-		basicTower = ImageLoader.loadImage("/textures/tower.png");
+		blueBasicTower = towers.crop(0, 0, (int)( width * 1.5), (int)(height * 1.5));
+		redBasicTower = towers.crop((int)( width * 1.5), 0, (int)( width * 1.5), (int)(height * 1.5));
 	}
 }

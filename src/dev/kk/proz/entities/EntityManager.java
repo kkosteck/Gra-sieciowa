@@ -21,8 +21,9 @@ public class EntityManager {
 		for(int i = 0;i < getEntities().size();i++){
 			Entity e = getEntities().get(i);
 			e.tick();
-			if(!e.isActive())
+			if(!e.isActive()) {
 				getEntities().remove(e);
+			}
 		}
 	}
 	

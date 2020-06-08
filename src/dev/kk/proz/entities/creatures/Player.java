@@ -1,16 +1,18 @@
 package dev.kk.proz.entities.creatures;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import dev.kk.proz.Handler;
 import dev.kk.proz.gfx.Assets;
 import dev.kk.proz.input.KeyManager;
-import dev.kk.proz.net.packets.Packet01Disconnect;
 import dev.kk.proz.net.packets.Packet02Move;
 import dev.kk.proz.net.packets.Packet03Attack;
-import dev.kk.proz.states.GameOver;
-import dev.kk.proz.states.State;
+import dev.kk.proz.tiles.BlueHealingTile;
+import dev.kk.proz.tiles.RedHealingTile;
+import dev.kk.proz.tiles.Tile;
 import dev.kk.proz.utilities.Utilities.Teams;
 
 public class Player extends Creature {
@@ -20,14 +22,19 @@ public class Player extends Creature {
 	private BufferedImage moveLeft = Assets.redPlayer[2];
 	private BufferedImage moveRight = Assets.redPlayer[3];
 	private BufferedImage lastWay = Assets.redPlayer[0];
+	public static final int MAX_HEALTH = 500;
 	private Teams team = Teams.NONE; 
 	private String username = null;
+	private boolean healing = false;
+	private int healAmount = 10;
 	
 	private long lastAttackTimer, attackCooldown = 500, attackTimer = attackCooldown;
+	private long lastHealTimer, healCooldown = 500, healTimer = healCooldown;
 	private KeyManager keyManager;
 	
 	public Player(Handler handler, KeyManager keyManager, float x, float y, String username, Teams team) {
 		super(handler, x, y, DEFUALT_CREATURE_WIDTH, DEFUALT_CREATURE_HEIGHT);
+		health = MAX_HEALTH;
 		bounds.x = 10;
 		bounds.y  = 7;
 		bounds.width = 12;
@@ -35,6 +42,7 @@ public class Player extends Creature {
 		this.username = username;
 		this.keyManager = keyManager;
 		this.team = team;
+		health = MAX_HEALTH;
 		respawn(this.team);
 	}
 
@@ -48,12 +56,17 @@ public class Player extends Creature {
 			packet.writeData(handler.getSocketClient());
 		}
 		move();
+		checkHealing(healAmount);
 	}
 	
 	@Override
 	public void render(Graphics g) {
 		g.drawImage(getCurrentWay(), (int)x, (int)y, width, height, null);
-		
+		if(healing == true) {
+			g.setFont(new Font("Arial", Font.PLAIN, 12));
+			g.setColor(Color.PINK);
+			g.drawString("+"+healAmount, (int) x, (int) y);
+		}
 	}
 	
 	private void checkAttacks() {
@@ -86,6 +99,27 @@ public class Player extends Creature {
 			packet.writeData(handler.getSocketClient());
 		}
 		attackTimer = 0;
+	}
+	
+	private void checkHealing(int amount) {
+		healTimer += System.currentTimeMillis() - lastHealTimer;
+		lastHealTimer = System.currentTimeMillis();
+		if(healTimer < healCooldown)
+			return;
+		if(health + amount >= MAX_HEALTH) {
+			healing = false;
+			health = MAX_HEALTH;
+			return;
+		}
+		if(handler.getMap().getTile((int) (x / Tile.TILEWIDTH), (int) (y / Tile.TILEHEIGHT)) instanceof RedHealingTile && team == Teams.RED) {
+			healing = true;
+			health +=amount;
+		} else if(handler.getMap().getTile((int) (x / Tile.TILEWIDTH), (int) (y / Tile.TILEHEIGHT)) instanceof BlueHealingTile && team == Teams.BLUE) {
+			healing = true;
+			health +=amount;
+		}else
+			healing = false;
+		healTimer = 0;
 	}
 	
 	public void respawn(Teams team) {
