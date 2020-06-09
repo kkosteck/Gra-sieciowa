@@ -14,9 +14,11 @@ import dev.kk.proz.utilities.Utilities.Teams;
 
 public class Castle extends Tower{
 
+	public static final int MAX_HEALTH = 1000;
+
 	public Castle(Handler handler, float x, float y, Teams team) {
 		super(handler, x, y, 4 * Tile.TILEWIDTH, 8 * Tile.TILEHEIGHT, team);
-		health = 1000;
+		health = MAX_HEALTH;
 	}
 
 	@Override
@@ -48,7 +50,6 @@ public class Castle extends Tower{
 			if(e.equals(this))
 				continue;
 			else if(e instanceof Tower && (((Tower)e).getTeam().equals(team))) {
-				System.out.println("check");
 				return;
 			}
 		}

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import dev.kk.proz.Handler;
 import dev.kk.proz.entities.creatures.PlayerMP;
+import dev.kk.proz.entities.towers.Castle;
+import dev.kk.proz.utilities.Utilities.Teams;
 
 public class EntityManager {
 	
@@ -69,6 +71,15 @@ public class EntityManager {
 
 	public synchronized ArrayList<Entity> getEntities() {
 		return entities;
+	}
+	
+	public Castle getCastle(Teams team) {
+	    for (Entity e : getEntities()) {
+	        if (e instanceof Castle && ((Castle) e).getTeam() == team) {
+	           return (Castle)e;
+	        }
+	    }
+	    return null;
 	}
 	
 }

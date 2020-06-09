@@ -32,7 +32,6 @@ public abstract class Entity {
 	public abstract void die();
 	
 	public void hurt(int amount) {
-		System.out.println("check2");
 		health -=amount;
 		if(health <= 0) {
 			active = false;

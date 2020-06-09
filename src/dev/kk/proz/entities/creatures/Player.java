@@ -28,7 +28,7 @@ public class Player extends Creature {
 	private boolean healing = false;
 	private int healAmount = 10;
 	
-	private long lastAttackTimer, attackCooldown = 500, attackTimer = attackCooldown;
+	private long lastAttackTimer, attackCooldown = 250, attackTimer = attackCooldown;
 	private long lastHealTimer, healCooldown = 500, healTimer = healCooldown;
 	private KeyManager keyManager;
 	
