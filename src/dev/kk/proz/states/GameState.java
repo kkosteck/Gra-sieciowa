@@ -48,7 +48,6 @@ public class GameState extends State {
 		
 		gui();
 		multiplayer();
-		
 	}
 	
 	@Override

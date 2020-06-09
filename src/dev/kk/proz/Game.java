@@ -22,11 +22,7 @@ public class Game implements Runnable {
 	private Graphics g;
 
 	// states
-	public State gameState;
-	public State menuState;
-	public State pickSide;
-	public State gameOver;
-	public State gameEnd;
+	public State gameState, menuState, pickSide, gameOver, gameEnd, howToPlay;
 
 	// input
 //	private KeyManager keyManager;

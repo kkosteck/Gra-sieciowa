@@ -10,7 +10,7 @@ public class Assets {
 	
 	
 	public static BufferedImage grassTile, blueTower, redTower, redHealTile, blueHealTile, wallTile;
-	public static BufferedImage[] startButton, exitButton, tryAgainButton;
+	public static BufferedImage[] startButton, exitButton, tryAgainButton, htpButton, backButton;
 	public static BufferedImage redSideButton, blueSideButton;
 	
 	public static BufferedImage blueBasicTower, redBasicTower;
@@ -57,6 +57,14 @@ public class Assets {
 		exitButton = new BufferedImage[2];
 		exitButton[0] = buttons.crop(width * 8, 0, width * 4, height * 2);
 		exitButton[1] = buttons.crop(width * 12, 0, width * 4, height * 2);
+		
+		htpButton = new BufferedImage[2];
+		htpButton[0] = buttons.crop(width * 16, 0, width * 4, height * 2);
+		htpButton[1] = buttons.crop(width * 16, height * 2, width * 4, height * 2);
+		
+		backButton = new BufferedImage[2];
+		backButton[0] = buttons.crop(0, height * 4, width * 4, height * 2);
+		backButton[1] = buttons.crop(width * 4, height * 4, width * 4, height * 2);
 		
 		redSideButton = buttons.crop(0, height * 2, width * 4, height * 2);
 		blueSideButton = buttons.crop(width * 4, height * 2, width * 4, height * 2);

@@ -18,7 +18,7 @@ public class MenuState extends State {
 		uiManager = new UIManager(handler);
 		handler.getMouseManager().setUIManager(uiManager);
 		
-		UIButton startButton = new UIButton(540, 200, 200, 100, Assets.startButton, new ClickListener(){
+		UIButton startButton = new UIButton(540, 150, 200, 100, Assets.startButton, new ClickListener(){
 			@Override
 			public void onClick() {
 				handler.getMouseManager().setUIManager(null);
@@ -26,7 +26,15 @@ public class MenuState extends State {
 				State.setState(handler.getGame().pickSide);
 		}});
 		
-		UIButton exitButton = new UIButton(540, 350, 200, 100, Assets.exitButton, new ClickListener(){
+		UIButton htpButton = new UIButton(540, 275, 200, 100, Assets.htpButton, new ClickListener(){
+			@Override
+			public void onClick() {
+				handler.getMouseManager().setUIManager(null);
+				handler.getGame().howToPlay = new HowToPlay(handler);
+				State.setState(handler.getGame().howToPlay);
+		}});
+		
+		UIButton exitButton = new UIButton(540, 400, 200, 100, Assets.exitButton, new ClickListener(){
 			@Override
 			public void onClick() {
 				handler.getMouseManager().setUIManager(null);
@@ -34,6 +42,7 @@ public class MenuState extends State {
 		}});
 		
 		uiManager.addObject(startButton);
+		uiManager.addObject(htpButton);
 		uiManager.addObject(exitButton);
 	}
 	
