@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 import dev.kk.proz.Handler;
 import dev.kk.proz.entities.creatures.Player;
 import dev.kk.proz.entities.creatures.PlayerMP;
-import dev.kk.proz.entities.towers.Castle;
 import dev.kk.proz.gfx.Assets;
 import dev.kk.proz.input.KeyManager;
 import dev.kk.proz.input.WindowManager;
@@ -35,8 +34,7 @@ public class GameState extends State {
 	private float spawnX = 50, spawnY = 50;
 	private KeyManager keyManager;
 	private WindowManager windowManager;
-	private HealthBar playerHPBar, redCastleHP, blueCastleHP;
-	private Castle redCastle, blueCastle;
+	private HealthBar playerHPBar;
 	
 	public GameState(Handler handler) {
 		super(handler);	
@@ -55,8 +53,6 @@ public class GameState extends State {
 		handler.getMouseManager().setUIManager(uiManager);
 		basicMap.tick();
 		playerHPBar.setValue(player.getHealth());
-		blueCastleHP.setValue(blueCastle.getHealth());
-		redCastleHP.setValue(redCastle.getHealth());
 		uiManager.tick();
 		
 		if(player.getHealth() <= 0) { //if player dies
@@ -84,9 +80,9 @@ public class GameState extends State {
 		uiManager = new UIManager(handler);
 		
 		if(State.getSide() == Teams.RED) // player health bar
-			playerHPBar = new HealthBar(16, 675, 136, 32, 0, Player.MAX_HEALTH, Color.RED);
+			playerHPBar = new HealthBar(16, 675, 136, 32, 0, Player.MAX_HEALTH, Color.RED, true);
 		else if(State.getSide() == Teams.BLUE) 
-			playerHPBar = new HealthBar(1128, 675, 136, 32, 0, Player.MAX_HEALTH, Color.BLUE);
+			playerHPBar = new HealthBar(1128, 675, 136, 32, 0, Player.MAX_HEALTH, Color.BLUE, false);
 		uiManager.addObject(playerHPBar);
 		
 		UIButton exitButton = new UIButton(1225, 690, 50, 25, Assets.exitButton, new ClickListener(){
@@ -99,15 +95,6 @@ public class GameState extends State {
 		        packet.writeData(socketClient);
 		}});
 		uiManager.addObject(exitButton);
-
-		//castles health bars
-		redCastle = basicMap.getEntityManager().getCastle(Teams.RED);
-		redCastleHP = new HealthBar(16, 13, 136, 32, 0, Castle.MAX_HEALTH, Color.RED);
-		uiManager.addObject(redCastleHP);
-		blueCastle = basicMap.getEntityManager().getCastle(Teams.BLUE);
-		blueCastleHP = new HealthBar(1128, 13, 136, 32, 0, Castle.MAX_HEALTH, Color.BLUE);
-		uiManager.addObject(blueCastleHP);
-		
 	}
 	
 	public void multiplayer() {

@@ -1,8 +1,11 @@
 package dev.kk.proz.maps;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 
 import dev.kk.proz.Handler;
+import dev.kk.proz.entities.Entity;
 import dev.kk.proz.entities.EntityManager;
 import dev.kk.proz.entities.towers.BasicTower;
 import dev.kk.proz.entities.towers.Castle;
@@ -17,6 +20,8 @@ public class Map {
 	@SuppressWarnings("unused")
 	private Handler handler;
 	
+	private long lastRespawnTimer, respawnCooldown = 10000, respawnTimer = respawnCooldown;
+	
 	private EntityManager entityManager;
 	
 	public Map(Handler handler, String path) {
@@ -29,12 +34,10 @@ public class Map {
 			for(int x = 0; x < width; x++) {
 				if(getTile(x,y) == Tile.redTower) {
 					BasicTower tower = new BasicTower(handler, (int) x * Tile.TILEWIDTH - 16, (int)y * Tile.TILEHEIGHT - 16, Teams.RED);
-					tower.setTeam(Teams.RED);
 					entityManager.addEntity(tower);
 				}
 				if(getTile(x,y) == Tile.blueTower) {
 					BasicTower tower = new BasicTower(handler, (int) x * Tile.TILEWIDTH - 16, (int)y * Tile.TILEHEIGHT - 16, Teams.BLUE);
-					tower.setTeam(Teams.BLUE);
 					entityManager.addEntity(tower);
 				}
 			}	
@@ -47,6 +50,46 @@ public class Map {
 	
 	public void tick() {
 		entityManager.tick();
+		
+		respawnTimer += System.currentTimeMillis() - lastRespawnTimer;
+		lastRespawnTimer = System.currentTimeMillis();
+		if(respawnTimer >= respawnCooldown) {
+			System.out.println("respawn");
+			respawnTowers();
+			respawnTimer = 0;
+		}
+	}
+	
+	private void respawnTowers() {
+		boolean alive = false;
+		for(int y = 0; y < height; y++) {
+			for(int x = 0; x < width; x++) {
+				if(getTile(x,y) == Tile.redTower) {
+					alive = false;
+					for(Entity e : entityManager.getEntities()) {
+						if(e instanceof BasicTower && e.getX() == ((int) x * Tile.TILEWIDTH - 16) && e.getY() == (int)y * Tile.TILEHEIGHT - 16) {
+							alive = true;
+						}
+					}
+					if(alive == false) {
+						BasicTower tower = new BasicTower(handler, (int) x * Tile.TILEWIDTH - 16, (int)y * Tile.TILEHEIGHT - 16, Teams.RED);
+						entityManager.addEntity(tower);
+					}
+				}
+				if(getTile(x,y) == Tile.blueTower) {
+					alive = false;
+					for(Entity e : entityManager.getEntities()) {
+						if(e instanceof BasicTower && e.getX() == ((int) x * Tile.TILEWIDTH - 16) && e.getY() == (int)y * Tile.TILEHEIGHT - 16) {
+							alive = true;
+						}
+					}
+					if(alive == false) {
+						BasicTower tower = new BasicTower(handler, (int) x * Tile.TILEWIDTH - 16, (int)y * Tile.TILEHEIGHT - 16, Teams.BLUE);
+						entityManager.addEntity(tower);
+					}
+				}
+			}
+		}
 	}
 	
 	public void render(Graphics g) {
@@ -56,8 +99,16 @@ public class Map {
 			}	
 		}
 		entityManager.render(g);
+		respawnDisplay(g);
 	}
 	
+	private void respawnDisplay(Graphics g) {
+		g.setFont(new Font("Arial", Font.BOLD, 16));
+		g.setColor(Color.WHITE);
+		g.drawString("Towers respawn in:"+(int) (10 - (respawnTimer / 1000)) + "s", 547, 717);
+		
+	}
+
 	public Tile getTile(int x, int y) {
 		if(x < 0 || y < 0 || x >= width || y >= height)
 			return Tile.wallTile;
