@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import main.Handler;
 import main.entities.creatures.Player;
 import main.entities.creatures.PlayerMP;
+import main.entities.towers.Castle;
 import main.gfx.Assets;
 import main.input.KeyManager;
 import main.input.WindowManager;
@@ -59,7 +60,6 @@ public class GameState extends State {
 			respawnTimer += System.currentTimeMillis() - lastRespawnTimer;
 			lastRespawnTimer = System.currentTimeMillis();
 			if (respawnTimer >= respawnCooldown) {
-				System.out.println("check state");
 				Packet04Start packet = new Packet04Start(waiting, respawnTimer);
 				packet.writeData(handler.getSocketClient());
 				respawnTimer = 0;
@@ -146,7 +146,7 @@ public class GameState extends State {
 				State.getSide(), null, -1);
 		basicMap.getEntityManager().addEntity(player);
 		Packet00Login loginPacket = new Packet00Login(player.getUsername(), player.getX(), player.getY(),
-				player.getTeam());
+				player.getTeam(), Castle.MAX_HEALTH, Castle.MAX_HEALTH);
 		if (socketServer != null) {
 			socketServer.addConnection((PlayerMP) player, loginPacket);
 		}

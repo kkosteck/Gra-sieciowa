@@ -10,8 +10,10 @@ import java.net.UnknownHostException;
 import main.Handler;
 import main.entities.bullets.BasicBullet;
 import main.entities.creatures.PlayerMP;
+import main.entities.towers.Castle;
 import main.net.packets.Packet;
 import main.net.packets.Packet.PacketTypes;
+import main.utilities.Utilities.Teams;
 import main.net.packets.Packet00Login;
 import main.net.packets.Packet01Disconnect;
 import main.net.packets.Packet02Move;
@@ -98,7 +100,11 @@ public class GameClient extends Thread {
 				"[" + address.getHostAddress() + ":" + port + "]" + packet.getUsername() + " has joined the game.");
 		PlayerMP player = new PlayerMP(handler, packet.getX(), packet.getY(), packet.getUsername(), packet.getTeam(),
 				address, port);
-		handler.getMap().getEntityManager().addEntity(player);
+		handler.getEntityManager().addEntity(player);
+		if(packet.getRedCastleHealth() < Castle.MAX_HEALTH)
+			handler.getEntityManager().getCastle(Teams.RED).setHealth(packet.getRedCastleHealth());
+		if(packet.getBlueCastleHealth() < Castle.MAX_HEALTH)
+			handler.getEntityManager().getCastle(Teams.BLUE).setHealth(packet.getBlueCastleHealth());
 	}
 
 	private void handleAttack(Packet03Attack packet) {

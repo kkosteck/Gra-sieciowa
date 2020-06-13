@@ -17,6 +17,7 @@ import main.net.packets.Packet01Disconnect;
 import main.net.packets.Packet02Move;
 import main.net.packets.Packet03Attack;
 import main.net.packets.Packet04Start;
+import main.utilities.Utilities.Teams;
 
 public class GameServer extends Thread {
 
@@ -100,7 +101,9 @@ public class GameServer extends Thread {
 				// relay to the current connected player that there is a new player
 				sendData(packet.getData(), p.ipAddress, p.port);
 				// relay to the new player that the currently connect player exists
-				Packet00Login packetPlayer = new Packet00Login(p.getUsername(), p.getX(), p.getY(), p.getTeam());
+				int redHealth = handler.getEntityManager().getCastle(Teams.RED).getHealth();
+				int blueHealth = handler.getEntityManager().getCastle(Teams.BLUE).getHealth();
+				Packet00Login packetPlayer = new Packet00Login(p.getUsername(), p.getX(), p.getY(), p.getTeam(), redHealth, blueHealth);
 				sendData(packetPlayer.getData(), player.ipAddress, player.port);
 			}
 		}

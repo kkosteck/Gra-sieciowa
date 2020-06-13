@@ -9,6 +9,7 @@ public class Packet00Login extends Packet{
 	private String username;
 	private float x, y;
 	private Teams team;
+	private int redCastleHealth, blueCastleHealth;
 	
 	public Packet00Login(byte[] data) {
 		super(00);
@@ -17,15 +18,19 @@ public class Packet00Login extends Packet{
 		this.x = Float.parseFloat(dataArray[1]);
 		this.y = Float.parseFloat(dataArray[2]);
 		this.team = Teams.valueOf(Integer.parseInt(dataArray[3]));
+		this.redCastleHealth = Integer.parseInt(dataArray[4]);
+		this.blueCastleHealth = Integer.parseInt(dataArray[5]);
 	}
 	
-	public Packet00Login(String username, float x, float y, Teams team) {
+	public Packet00Login(String username, float x, float y, Teams team, int redCastleHealth, int blueCastleHealth) {
 		super(00);
 		
 		this.username = username;
 		this.x = x;
 		this.y = y;
 		this.team = team;
+		this.redCastleHealth = redCastleHealth;
+		this.blueCastleHealth = blueCastleHealth;
 	}
 
 	@Override
@@ -40,7 +45,7 @@ public class Packet00Login extends Packet{
 
 	@Override
 	public byte[] getData() {
-		return ("00" + this.username + "," + this.x + "," + this.y + "," + this.team.getId()).getBytes();
+		return ("00" + username + "," + x + "," + y + "," + team.getId()+","+redCastleHealth+","+blueCastleHealth).getBytes();
 	}
 
 	public String getUsername() {
@@ -58,5 +63,13 @@ public class Packet00Login extends Packet{
     public Teams getTeam() {
     	return team;
     }
+
+	public int getRedCastleHealth() {
+		return redCastleHealth;
+	}
+
+	public int getBlueCastleHealth() {
+		return blueCastleHealth;
+	}
     
 }

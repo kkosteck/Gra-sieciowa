@@ -49,7 +49,6 @@ public class Map {
 		entityManager.tick();
 		
 		if(respawnTimer >= handler.getGame().gameState.getRespawnCooldown()) {
-			System.out.println("check");
 			respawnTowers();
 		}
 	}
