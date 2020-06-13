@@ -40,6 +40,7 @@ public class HowToPlay extends State{
 	public void render(Graphics g) {
 		g.setColor(Color.gray);
 		g.fillRect(0,0,1280,720);
+		g.drawImage(Assets.howToPlay, 0, 0, 1280, 720, null);
 		uiManager.render(g);
 		
 	}

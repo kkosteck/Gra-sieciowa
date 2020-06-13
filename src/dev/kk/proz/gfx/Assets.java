@@ -12,6 +12,7 @@ public class Assets {
 	public static BufferedImage grassTile, blueTower, redTower, redHealTile, blueHealTile, wallTile;
 	public static BufferedImage[] startButton, exitButton, tryAgainButton, htpButton, backButton;
 	public static BufferedImage redSideButton, blueSideButton;
+	public static BufferedImage howToPlay;
 	
 	public static BufferedImage blueBasicTower, redBasicTower;
 	public static BufferedImage basicBullet_upDown, basicBullet_leftRight;
@@ -75,5 +76,8 @@ public class Assets {
 		
 		blueBasicTower = towers.crop(0, 0, (int)( width * 1.5), (int)(height * 1.5));
 		redBasicTower = towers.crop((int)( width * 1.5), 0, (int)( width * 1.5), (int)(height * 1.5));
+		
+		howToPlay = ImageLoader.loadImage("/textures/howToPlay.png");
+		
 	}
 }

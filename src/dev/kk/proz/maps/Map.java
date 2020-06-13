@@ -54,7 +54,6 @@ public class Map {
 		respawnTimer += System.currentTimeMillis() - lastRespawnTimer;
 		lastRespawnTimer = System.currentTimeMillis();
 		if(respawnTimer >= respawnCooldown) {
-			System.out.println("respawn");
 			respawnTowers();
 			respawnTimer = 0;
 		}
