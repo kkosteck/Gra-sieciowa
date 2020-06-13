@@ -16,13 +16,14 @@ import dev.kk.proz.net.packets.Packet00Login;
 import dev.kk.proz.net.packets.Packet01Disconnect;
 import dev.kk.proz.net.packets.Packet02Move;
 import dev.kk.proz.net.packets.Packet03Attack;
+import dev.kk.proz.net.packets.Packet04Start;
 
-public class GameClient extends Thread{
-	
+public class GameClient extends Thread {
+
 	private InetAddress ipAddress;
 	private DatagramSocket socket;
 	private Handler handler;
-	
+
 	public GameClient(Handler handler, String ipAddress) {
 		this.handler = handler;
 		try {
@@ -34,9 +35,9 @@ public class GameClient extends Thread{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void run() {
-		while(true) {
+		while (true) {
 			byte[] data = new byte[1024];
 			DatagramPacket packet = new DatagramPacket(data, data.length);
 			try {
@@ -47,13 +48,13 @@ public class GameClient extends Thread{
 			this.parsePacket(packet.getData(), packet.getAddress(), packet.getPort());
 		}
 	}
-	
+
 	private void parsePacket(byte[] data, InetAddress address, int port) {
 		String message = new String(data).trim();
-		PacketTypes type = Packet.lookupPacket(message.substring(0, 2)); 
+		PacketTypes type = Packet.lookupPacket(message.substring(0, 2));
 		Packet packet;
-		
-		switch(type) {
+
+		switch (type) {
 		default:
 		case INVALID:
 			break;
@@ -63,19 +64,26 @@ public class GameClient extends Thread{
 			break;
 		case DISCONNECT:
 			packet = new Packet01Disconnect(data);
-			System.out.println("[" + address.getHostAddress() + ":" + port + "] " + ((Packet01Disconnect) packet).getUsername() + " has left the world.");
+			System.out.println("[" + address.getHostAddress() + ":" + port + "] "
+					+ ((Packet01Disconnect) packet).getUsername() + " has left the world.");
 			handler.getEntityManager().removePlayerMP(((Packet01Disconnect) packet).getUsername());
 			break;
 		case MOVE:
-            packet = new Packet02Move(data);
-            handleMove((Packet02Move) packet);
-            break;
+			packet = new Packet02Move(data);
+			handleMove((Packet02Move) packet);
+			break;
 		case ATTACK:
 			packet = new Packet03Attack(data);
 			handleAttack((Packet03Attack) packet);
+			break;
+		case START:
+			packet = new Packet04Start(data);
+			handler.getGame().gameState.setWaiting(((Packet04Start) (packet)).getWaiting());
+			handler.getMap().setRespawnTimer(((Packet04Start) (packet)).getTimer());
+			break;
 		}
 	}
-	
+
 	public void sendData(byte[] data) {
 		DatagramPacket packet = new DatagramPacket(data, data.length, ipAddress, 1331);
 		try {
@@ -84,19 +92,21 @@ public class GameClient extends Thread{
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void handleLogin(Packet00Login packet, InetAddress address, int port) {
-		System.out.println("["+address.getHostAddress()+":"+port+"]"+packet.getUsername()+ " has joined the game.");
-		PlayerMP player = new PlayerMP(handler, packet.getX(), packet.getY(), packet.getUsername(), packet.getTeam(), address, port);
+		System.out.println(
+				"[" + address.getHostAddress() + ":" + port + "]" + packet.getUsername() + " has joined the game.");
+		PlayerMP player = new PlayerMP(handler, packet.getX(), packet.getY(), packet.getUsername(), packet.getTeam(),
+				address, port);
 		handler.getMap().getEntityManager().addEntity(player);
 	}
-	
+
 	private void handleAttack(Packet03Attack packet) {
 		BasicBullet bullet = new BasicBullet(handler, packet.getX(), packet.getY(), packet.getWay(), packet.getTeam());
 		handler.getMap().getEntityManager().addEntity(bullet);
 	}
-	
-    private void handleMove(Packet02Move packet) {
-    	handler.getEntityManager().movePlayer(packet.getUsername(), packet.getxMove(), packet.getyMove());
-    }
+
+	private void handleMove(Packet02Move packet) {
+		handler.getEntityManager().movePlayer(packet.getUsername(), packet.getxMove(), packet.getyMove());
+	}
 }

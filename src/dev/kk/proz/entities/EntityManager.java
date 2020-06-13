@@ -81,5 +81,22 @@ public class EntityManager {
 	    }
 	    return null;
 	}
-	
+	public int countRedTeammates() {
+		int index = 0;
+		for (Entity e : getEntities()) {
+	        if (e instanceof PlayerMP && ((PlayerMP) e).getTeam() == Teams.RED) {
+	            index++;
+	        }
+	    }
+		return index;
+	}
+	public int countBlueTeammates() {
+		int index = 0;
+		for (Entity e : getEntities()) {
+	        if (e instanceof PlayerMP && ((PlayerMP) e).getTeam() == Teams.BLUE) {
+	            index++;
+	        }
+	    }
+		return index;
+	}
 }

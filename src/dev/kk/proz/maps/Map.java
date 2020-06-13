@@ -17,17 +17,14 @@ public class Map {
 
 	private int width, height;
 	private int[][] tiles;
-	@SuppressWarnings("unused")
 	private Handler handler;
-	
-	private long lastRespawnTimer, respawnCooldown = 10000, respawnTimer = respawnCooldown;
+	private long respawnTimer;
 	
 	private EntityManager entityManager;
 	
 	public Map(Handler handler, String path) {
 		this.handler = handler;
 		entityManager = new EntityManager(handler);
-		
 		loadMap(path);
 		
 		for(int y = 0; y < height; y++) {//add initial towers
@@ -51,11 +48,9 @@ public class Map {
 	public void tick() {
 		entityManager.tick();
 		
-		respawnTimer += System.currentTimeMillis() - lastRespawnTimer;
-		lastRespawnTimer = System.currentTimeMillis();
-		if(respawnTimer >= respawnCooldown) {
+		if(respawnTimer >= handler.getGame().gameState.getRespawnCooldown()) {
+			System.out.println("check");
 			respawnTowers();
-			respawnTimer = 0;
 		}
 	}
 	
@@ -97,15 +92,8 @@ public class Map {
 				getTile(x,y).render(g, x * Tile.TILEWIDTH, y * Tile.TILEHEIGHT);
 			}	
 		}
-		entityManager.render(g);
 		respawnDisplay(g);
-	}
-	
-	private void respawnDisplay(Graphics g) {
-		g.setFont(new Font("Arial", Font.BOLD, 16));
-		g.setColor(Color.WHITE);
-		g.drawString("Towers respawn in:"+(int) (10 - (respawnTimer / 1000)) + "s", 547, 717);
-		
+		entityManager.render(g);
 	}
 
 	public Tile getTile(int x, int y) {
@@ -133,9 +121,25 @@ public class Map {
 			}
 		}
 	}
+	
+	private void respawnDisplay(Graphics g) {
+		g.setFont(new Font("Arial", Font.BOLD, 16));
+		g.setColor(Color.WHITE);
+		g.drawString("Towers respawn in:"+(int) (10 - (respawnTimer / 1000)) + "s", 547, 717);
+		
+	}
 
 	public EntityManager getEntityManager() {
 		return entityManager;
 	}
+
+	public long getRespawnTimer() {
+		return respawnTimer;
+	}
+
+	public void setRespawnTimer(long respawnTimer) {
+		this.respawnTimer = respawnTimer;
+	}
+	
 	
 }
