@@ -97,6 +97,6 @@ public class GameClient extends Thread{
 	}
 	
     private void handleMove(Packet02Move packet) {
-    	handler.getEntityManager().movePlayer(packet.getUsername(), packet.getX(), packet.getY());
+    	handler.getEntityManager().movePlayer(packet.getUsername(), packet.getxMove(), packet.getyMove());
     }
 }

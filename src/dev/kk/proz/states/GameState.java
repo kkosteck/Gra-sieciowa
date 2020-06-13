@@ -105,6 +105,7 @@ public class GameState extends State {
 		}
 		socketClient = new GameClient(handler, JOptionPane.showInputDialog("Enter a server ip"));
 		socketClient.start();
+		handler.setSocketClient(socketClient);
 
 		if(State.getSide() == Teams.RED) { //set spawn
 			spawnX = 256;
@@ -120,7 +121,7 @@ public class GameState extends State {
 			socketServer.addConnection((PlayerMP) player, loginPacket);
 		}
 		loginPacket.writeData(socketClient);
-		handler.setSocketClient(socketClient);
+		
 		windowManager = new WindowManager(handler, player.getUsername());
 	}
 }

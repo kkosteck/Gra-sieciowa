@@ -48,14 +48,14 @@ public class Player extends Creature {
 
 	@Override
 	public void tick() {
+		move();
 		if(keyManager != null) {
 			keyManager.tick();
 			getInput();
 			checkAttacks();
-			Packet02Move packet = new Packet02Move(getUsername(), xMove , yMove);
+			Packet02Move packet = new Packet02Move(getUsername(), xMove , yMove, x, y);
 			packet.writeData(handler.getSocketClient());
 		}
-		move();
 		checkHealing(healAmount);
 	}
 	
