@@ -1,10 +1,10 @@
-package dev.kk.proz.input;
+package main.input;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import dev.kk.proz.ui.UIManager;
+import main.ui.UIManager;
 
 public class MouseManager implements MouseListener, MouseMotionListener {
 

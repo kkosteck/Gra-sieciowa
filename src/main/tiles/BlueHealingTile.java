@@ -1,6 +1,6 @@
-package dev.kk.proz.tiles;
+package main.tiles;
 
-import dev.kk.proz.gfx.Assets;
+import main.gfx.Assets;
 
 public class BlueHealingTile extends Tile{
 

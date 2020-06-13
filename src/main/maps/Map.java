@@ -1,17 +1,17 @@
-package dev.kk.proz.maps;
+package main.maps;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
-import dev.kk.proz.Handler;
-import dev.kk.proz.entities.Entity;
-import dev.kk.proz.entities.EntityManager;
-import dev.kk.proz.entities.towers.BasicTower;
-import dev.kk.proz.entities.towers.Castle;
-import dev.kk.proz.tiles.Tile;
-import dev.kk.proz.utilities.Utilities;
-import dev.kk.proz.utilities.Utilities.Teams; 
+import main.Handler;
+import main.entities.Entity;
+import main.entities.EntityManager;
+import main.entities.towers.BasicTower;
+import main.entities.towers.Castle;
+import main.tiles.Tile;
+import main.utilities.Utilities;
+import main.utilities.Utilities.Teams; 
 
 public class Map {
 

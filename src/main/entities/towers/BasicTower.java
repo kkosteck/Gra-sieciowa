@@ -1,11 +1,11 @@
-package dev.kk.proz.entities.towers;
+package main.entities.towers;
 
 import java.awt.Graphics;
 
-import dev.kk.proz.Handler;
-import dev.kk.proz.gfx.Assets;
-import dev.kk.proz.tiles.Tile;
-import dev.kk.proz.utilities.Utilities.Teams;
+import main.Handler;
+import main.gfx.Assets;
+import main.tiles.Tile;
+import main.utilities.Utilities.Teams;
 
 public class BasicTower extends Tower {
 	

@@ -1,10 +1,10 @@
-package dev.kk.proz.entities.creatures;
+package main.entities.creatures;
 
 import java.net.InetAddress;
 
-import dev.kk.proz.Handler;
-import dev.kk.proz.input.KeyManager;
-import dev.kk.proz.utilities.Utilities.Teams;
+import main.Handler;
+import main.input.KeyManager;
+import main.utilities.Utilities.Teams;
 
 public class PlayerMP extends Player {
 

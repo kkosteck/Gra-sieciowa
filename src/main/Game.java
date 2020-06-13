@@ -1,14 +1,14 @@
-package dev.kk.proz;
+package main;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
-import dev.kk.proz.display.Display;
-import dev.kk.proz.gfx.Assets;
-import dev.kk.proz.input.MouseManager;
-import dev.kk.proz.states.GameState;
-import dev.kk.proz.states.MenuState;
-import dev.kk.proz.states.State;
+import main.display.Display;
+import main.gfx.Assets;
+import main.input.MouseManager;
+import main.states.GameState;
+import main.states.MenuState;
+import main.states.State;
 
 public class Game implements Runnable {
 

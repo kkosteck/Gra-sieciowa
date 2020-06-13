@@ -1,19 +1,19 @@
-package dev.kk.proz.entities.creatures;
+package main.entities.creatures;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import dev.kk.proz.Handler;
-import dev.kk.proz.gfx.Assets;
-import dev.kk.proz.input.KeyManager;
-import dev.kk.proz.net.packets.Packet02Move;
-import dev.kk.proz.net.packets.Packet03Attack;
-import dev.kk.proz.tiles.BlueHealingTile;
-import dev.kk.proz.tiles.RedHealingTile;
-import dev.kk.proz.tiles.Tile;
-import dev.kk.proz.utilities.Utilities.Teams;
+import main.Handler;
+import main.gfx.Assets;
+import main.input.KeyManager;
+import main.net.packets.Packet02Move;
+import main.net.packets.Packet03Attack;
+import main.tiles.BlueHealingTile;
+import main.tiles.RedHealingTile;
+import main.tiles.Tile;
+import main.utilities.Utilities.Teams;
 
 public class Player extends Creature {
 

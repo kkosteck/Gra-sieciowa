@@ -1,4 +1,4 @@
-package dev.kk.proz.ui;
+package main.ui;
 
 public interface ClickListener {
 	

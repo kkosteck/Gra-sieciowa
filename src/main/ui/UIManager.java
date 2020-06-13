@@ -1,10 +1,10 @@
-package dev.kk.proz.ui;
+package main.ui;
 
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import dev.kk.proz.Handler;
+import main.Handler;
 
 public class UIManager {
 	

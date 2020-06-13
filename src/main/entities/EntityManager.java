@@ -1,12 +1,12 @@
-package dev.kk.proz.entities;
+package main.entities;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import dev.kk.proz.Handler;
-import dev.kk.proz.entities.creatures.PlayerMP;
-import dev.kk.proz.entities.towers.Castle;
-import dev.kk.proz.utilities.Utilities.Teams;
+import main.Handler;
+import main.entities.creatures.PlayerMP;
+import main.entities.towers.Castle;
+import main.utilities.Utilities.Teams;
 
 public class EntityManager {
 	

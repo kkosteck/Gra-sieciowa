@@ -1,18 +1,18 @@
-package dev.kk.proz.entities.towers;
+package main.entities.towers;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
-import dev.kk.proz.Handler;
-import dev.kk.proz.entities.Entity;
-import dev.kk.proz.gfx.Assets;
-import dev.kk.proz.net.packets.Packet01Disconnect;
-import dev.kk.proz.states.GameEnd;
-import dev.kk.proz.states.GameState;
-import dev.kk.proz.states.State;
-import dev.kk.proz.tiles.Tile;
-import dev.kk.proz.ui.HealthBar;
-import dev.kk.proz.utilities.Utilities.Teams;
+import main.Handler;
+import main.entities.Entity;
+import main.gfx.Assets;
+import main.net.packets.Packet01Disconnect;
+import main.states.GameEnd;
+import main.states.GameState;
+import main.states.State;
+import main.tiles.Tile;
+import main.ui.HealthBar;
+import main.utilities.Utilities.Teams;
 
 public class Castle extends Tower{
 

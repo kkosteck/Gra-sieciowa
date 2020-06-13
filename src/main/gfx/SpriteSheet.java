@@ -1,4 +1,4 @@
-package dev.kk.proz.gfx;
+package main.gfx;
 
 import java.awt.image.BufferedImage;
 

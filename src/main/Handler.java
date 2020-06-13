@@ -1,10 +1,10 @@
-package dev.kk.proz;
+package main;
 
-import dev.kk.proz.entities.EntityManager;
-import dev.kk.proz.input.MouseManager;
-import dev.kk.proz.maps.Map;
-import dev.kk.proz.net.GameClient;
-import dev.kk.proz.net.GameServer;
+import main.entities.EntityManager;
+import main.input.MouseManager;
+import main.maps.Map;
+import main.net.GameClient;
+import main.net.GameServer;
 
 public class Handler {
 

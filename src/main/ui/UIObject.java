@@ -1,4 +1,4 @@
-package dev.kk.proz.ui;
+package main.ui;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;

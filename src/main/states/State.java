@@ -1,9 +1,9 @@
-package dev.kk.proz.states;
+package main.states;
 
 import java.awt.Graphics;
 
-import dev.kk.proz.Handler;
-import dev.kk.proz.utilities.Utilities.Teams;
+import main.Handler;
+import main.utilities.Utilities.Teams;
 
 public abstract class State {
 	

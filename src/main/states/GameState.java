@@ -1,4 +1,4 @@
-package dev.kk.proz.states;
+package main.states;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -6,23 +6,23 @@ import java.awt.Graphics;
 
 import javax.swing.JOptionPane;
 
-import dev.kk.proz.Handler;
-import dev.kk.proz.entities.creatures.Player;
-import dev.kk.proz.entities.creatures.PlayerMP;
-import dev.kk.proz.gfx.Assets;
-import dev.kk.proz.input.KeyManager;
-import dev.kk.proz.input.WindowManager;
-import dev.kk.proz.maps.Map;
-import dev.kk.proz.net.GameClient;
-import dev.kk.proz.net.GameServer;
-import dev.kk.proz.net.packets.Packet00Login;
-import dev.kk.proz.net.packets.Packet01Disconnect;
-import dev.kk.proz.net.packets.Packet04Start;
-import dev.kk.proz.ui.ClickListener;
-import dev.kk.proz.ui.HealthBar;
-import dev.kk.proz.ui.UIButton;
-import dev.kk.proz.ui.UIManager;
-import dev.kk.proz.utilities.Utilities.Teams;
+import main.Handler;
+import main.entities.creatures.Player;
+import main.entities.creatures.PlayerMP;
+import main.gfx.Assets;
+import main.input.KeyManager;
+import main.input.WindowManager;
+import main.maps.Map;
+import main.net.GameClient;
+import main.net.GameServer;
+import main.net.packets.Packet00Login;
+import main.net.packets.Packet01Disconnect;
+import main.net.packets.Packet04Start;
+import main.ui.ClickListener;
+import main.ui.HealthBar;
+import main.ui.UIButton;
+import main.ui.UIManager;
+import main.utilities.Utilities.Teams;
 
 public class GameState extends State {
 

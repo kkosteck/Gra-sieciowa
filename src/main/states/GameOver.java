@@ -1,13 +1,13 @@
-package dev.kk.proz.states;
+package main.states;
 
 import java.awt.Font;
 import java.awt.Graphics;
 
-import dev.kk.proz.Handler;
-import dev.kk.proz.gfx.Assets;
-import dev.kk.proz.ui.ClickListener;
-import dev.kk.proz.ui.UIButton;
-import dev.kk.proz.ui.UIManager;
+import main.Handler;
+import main.gfx.Assets;
+import main.ui.ClickListener;
+import main.ui.UIButton;
+import main.ui.UIManager;
 
 public class GameOver extends State{
 

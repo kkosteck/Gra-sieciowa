@@ -1,4 +1,4 @@
-package dev.kk.proz.net;
+package main.net;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -8,15 +8,15 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.kk.proz.Handler;
-import dev.kk.proz.entities.creatures.PlayerMP;
-import dev.kk.proz.net.packets.Packet;
-import dev.kk.proz.net.packets.Packet.PacketTypes;
-import dev.kk.proz.net.packets.Packet00Login;
-import dev.kk.proz.net.packets.Packet01Disconnect;
-import dev.kk.proz.net.packets.Packet02Move;
-import dev.kk.proz.net.packets.Packet03Attack;
-import dev.kk.proz.net.packets.Packet04Start;
+import main.Handler;
+import main.entities.creatures.PlayerMP;
+import main.net.packets.Packet;
+import main.net.packets.Packet.PacketTypes;
+import main.net.packets.Packet00Login;
+import main.net.packets.Packet01Disconnect;
+import main.net.packets.Packet02Move;
+import main.net.packets.Packet03Attack;
+import main.net.packets.Packet04Start;
 
 public class GameServer extends Thread {
 

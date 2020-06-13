@@ -1,7 +1,7 @@
-package dev.kk.proz.net.packets;
+package main.net.packets;
 
-import dev.kk.proz.net.GameClient;
-import dev.kk.proz.net.GameServer;
+import main.net.GameClient;
+import main.net.GameServer;
 
 public class Packet01Disconnect extends Packet{
 

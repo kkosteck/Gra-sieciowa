@@ -1,9 +1,9 @@
-package dev.kk.proz.entities;
+package main.entities;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import dev.kk.proz.Handler;
+import main.Handler;
 
 public abstract class Entity {
 

@@ -1,4 +1,4 @@
-package dev.kk.proz.tiles;
+package main.tiles;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;

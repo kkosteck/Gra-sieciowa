@@ -1,8 +1,8 @@
-package dev.kk.proz.entities.bullets;
+package main.entities.bullets;
 
-import dev.kk.proz.Handler;
-import dev.kk.proz.entities.Entity;
-import dev.kk.proz.tiles.Tile;
+import main.Handler;
+import main.entities.Entity;
+import main.tiles.Tile;
 
 public abstract class Bullet extends Entity {
 	

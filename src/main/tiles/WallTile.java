@@ -1,8 +1,8 @@
-package dev.kk.proz.tiles;
+package main.tiles;
 
 import java.awt.Graphics;
 
-import dev.kk.proz.gfx.Assets;
+import main.gfx.Assets;
 
 public class WallTile extends Tile{
 	

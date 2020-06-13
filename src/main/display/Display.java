@@ -1,4 +1,4 @@
-package dev.kk.proz.display;
+package main.display;
 
 import java.awt.Canvas;
 import java.awt.Dimension;

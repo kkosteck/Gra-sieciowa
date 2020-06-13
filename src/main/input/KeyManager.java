@@ -1,9 +1,9 @@
-package dev.kk.proz.input;
+package main.input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import dev.kk.proz.Handler;
+import main.Handler;
 
 public class KeyManager implements KeyListener {
 

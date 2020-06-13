@@ -1,4 +1,4 @@
-package dev.kk.proz.utilities;
+package main.utilities;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

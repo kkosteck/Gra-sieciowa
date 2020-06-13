@@ -1,13 +1,13 @@
-package dev.kk.proz.states;
+package main.states;
 
 import java.awt.Graphics;
 
-import dev.kk.proz.Handler;
-import dev.kk.proz.gfx.Assets;
-import dev.kk.proz.ui.ClickListener;
-import dev.kk.proz.ui.UIManager;
-import dev.kk.proz.ui.UISimpleButton;
-import dev.kk.proz.utilities.Utilities.Teams;
+import main.Handler;
+import main.gfx.Assets;
+import main.ui.ClickListener;
+import main.ui.UIManager;
+import main.ui.UISimpleButton;
+import main.utilities.Utilities.Teams;
 
 public class PickSide extends State{
 

@@ -1,4 +1,4 @@
-package dev.kk.proz;
+package main;
 
 public class Launcher {
 	

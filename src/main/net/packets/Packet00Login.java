@@ -1,8 +1,8 @@
-package dev.kk.proz.net.packets;
+package main.net.packets;
 
-import dev.kk.proz.net.GameClient;
-import dev.kk.proz.net.GameServer;
-import dev.kk.proz.utilities.Utilities.Teams;
+import main.net.GameClient;
+import main.net.GameServer;
+import main.utilities.Utilities.Teams;
 
 public class Packet00Login extends Packet{
 

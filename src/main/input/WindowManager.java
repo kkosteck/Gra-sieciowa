@@ -1,10 +1,10 @@
-package dev.kk.proz.input;
+package main.input;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-import dev.kk.proz.Handler;
-import dev.kk.proz.net.packets.Packet01Disconnect;
+import main.Handler;
+import main.net.packets.Packet01Disconnect;
 
 public class WindowManager implements WindowListener{
 	
