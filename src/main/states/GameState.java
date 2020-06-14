@@ -51,7 +51,7 @@ public class GameState extends State {
 	public GameState(Handler handler) {
 		super(handler);
 
-		basicMap = new Map(handler, "resources/map/basicMap.txt");
+		basicMap = new Map(handler, "/map/basicMap.txt");
 		handler.setMap(basicMap);
 		handler.getMouseManager().setUIManager(uiManager);
 

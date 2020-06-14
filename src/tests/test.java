@@ -16,11 +16,10 @@ class test {
 	void testSolidTiles() {
 
 		Handler handler = new Handler(new Game("Game", 1280, 720));
-		Map map = new Map(handler, "resources/map/basicMap.txt");
+		Map map = new Map(handler, "/map/basicMap.txt");
 		handler.setMap(map);
 		Player player = new Player(handler, null, 0.0f, 0.0f, "Test", Teams.NONE);
 		
 		Assert.assertTrue(player.checkEntityCollisions(0, 0));
 	}
-
 }

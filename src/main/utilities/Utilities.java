@@ -1,8 +1,9 @@
 package main.utilities;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +16,8 @@ public class Utilities {
 		StringBuilder builder = new StringBuilder();
 		
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(path));
+			InputStream in = Utilities.class.getResourceAsStream(path); 
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			String line;
 			while((line = br.readLine()) != null)
 				builder.append(line + "\n");

@@ -33,6 +33,7 @@ public class Assets {
 		SpriteSheet towers = new SpriteSheet(ImageLoader.loadImage("/textures/towers.png"));
 		
 		castle = ImageLoader.loadImage("/textures/castle.png");
+		howToPlay = ImageLoader.loadImage("/textures/htp.png");
 		
 		bluePlayer = new BufferedImage[4];
 		bluePlayer[3] = bluePlayerSheet.crop(0, 0, width, height);
@@ -83,7 +84,6 @@ public class Assets {
 		blueBasicTower = towers.crop(0, 0, (int)( width * 1.5), (int)(height * 1.5));
 		redBasicTower = towers.crop((int)( width * 1.5), 0, (int)( width * 1.5), (int)(height * 1.5));
 		
-		howToPlay = ImageLoader.loadImage("/textures/howToPlay.png");
 		
 	}
 }
