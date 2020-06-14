@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+// class for proper image loading
+
 public class ImageLoader {
 	
 	public static BufferedImage loadImage(String path) {

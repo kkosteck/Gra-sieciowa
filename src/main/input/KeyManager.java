@@ -5,6 +5,10 @@ import java.awt.event.KeyListener;
 
 import main.Handler;
 
+// keyboard input
+// assignment for every key in use
+// keyManager is individually created with every player
+
 public class KeyManager implements KeyListener {
 
 	private boolean[] keys;
@@ -13,6 +17,7 @@ public class KeyManager implements KeyListener {
 	
 	
 	public KeyManager(Handler handler) {
+		// we add key listener only if player is created
 		handler.getGame().getDisplay().getFrame().addKeyListener(this);
 		keys = new boolean[256];
 	}

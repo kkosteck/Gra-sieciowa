@@ -4,39 +4,44 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 
+// gui objects
+// player can interact with them
+
 public abstract class UIObject {
 
 	protected float x, y;
 	protected int width, height;
 	protected Rectangle bounds;
 	protected boolean hovering = false;
-	
+
 	public UIObject(float x, float y, int width, int height) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		bounds = new Rectangle((int)x, (int)y, width, height);
+		bounds = new Rectangle((int) x, (int) y, width, height);
 	}
-	
+
 	public abstract void tick();
-	
+
 	public abstract void render(Graphics g);
-	
+
 	public abstract void onClick();
-	
-	public void onMouseMove(MouseEvent e) {
-		if(bounds.contains(e.getX(), e.getY()))
+
+	public void onMouseMove(MouseEvent e) { // check if mouse is over the object
+		if (bounds.contains(e.getX(), e.getY()))
 			hovering = true;
 		else
 			hovering = false;
 	}
+
 	public void onMouseRelease(MouseEvent e) {
-		if(hovering)
+		if (hovering)
 			onClick();
 	}
-	
-	
+
+	// getters and setters
+
 	public float getX() {
 		return x;
 	}
@@ -76,6 +81,5 @@ public abstract class UIObject {
 	public void setHovering(boolean hovering) {
 		this.hovering = hovering;
 	}
-
 
 }

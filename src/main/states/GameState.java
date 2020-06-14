@@ -27,6 +27,8 @@ import main.ui.UIButton;
 import main.ui.UIManager;
 import main.utilities.Utilities.Teams;
 
+// main state in which gameplay is performed
+
 public class GameState extends State {
 
 	private UIManager uiManager;
@@ -42,13 +44,14 @@ public class GameState extends State {
 	private WindowManager windowManager;
 	private HealthBar playerHPBar;
 	private boolean waiting = true;
+
+	// variables for towers respawning
 	private long lastRespawnTimer, respawnCooldown = 10000, respawnTimer = respawnCooldown;
 
 	public GameState(Handler handler) {
 		super(handler);
 
 		basicMap = new Map(handler, "resources/map/basicMap.txt");
-		keyManager = new KeyManager(handler);
 		handler.setMap(basicMap);
 		handler.getMouseManager().setUIManager(uiManager);
 
@@ -65,7 +68,7 @@ public class GameState extends State {
 				Packet04Start packet = new Packet04Start(waiting, respawnTimer);
 				packet.writeData(handler.getSocketClient());
 				respawnTimer = 0;
-			}else {
+			} else {
 				waiting = checkForOponents();
 				Packet04Start packet = new Packet04Start(waiting, respawnTimer);
 				packet.writeData(handler.getSocketClient());
@@ -88,12 +91,12 @@ public class GameState extends State {
 			g.setFont(new Font("Arial", Font.PLAIN, 100));
 			g.drawString("WAIT FOR OPONENTS", 75, 360);
 		}
-		if(!player.isLiving()) {
+		if (!player.isLiving()) {
 			g.setFont(new Font("Arial", Font.PLAIN, 240));
 			g.drawString("YOU DIED", 75, 360);
 			g.setFont(new Font("Arial", Font.BOLD, 28));
 			g.setColor(Color.BLACK);
-			g.drawString("Respawn in:"+(int) (10 - (player.getDeathTimer() / 1000)) + "s", 540, 400);
+			g.drawString("Respawn in:" + (int) (10 - (player.getDeathTimer() / 1000)) + "s", 540, 400);
 		}
 	}
 
@@ -124,28 +127,29 @@ public class GameState extends State {
 	}
 
 	public void multiplayer() {
-        String[] options = {"run", "join"};
-        int choose = JOptionPane.showOptionDialog(null, "Do you want to run the server or join exisiting?",
-                "Server creation",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-		if (choose == 0) {
+		String[] options = { "run", "join" };
+		int choose = JOptionPane.showOptionDialog(null, "Do you want to run the server or join exisiting?",
+				"Server creation", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options,
+				options[0]);
+		if (choose == 0) { // create server thread if player wants to run the server
 			socketServer = new GameServer(handler);
 			socketServer.start();
 			handler.setSocketServer(socketServer);
 		}
 		String ipAddress;
-		if(choose == 1) {
+		if (choose == 1) { // if player wants to join the server he needs to input its ip
 			ipAddress = JOptionPane.showInputDialog("Enter a server ip");
-		}else {
+		} else {
 			InetAddress inetAddress;
 			try {
 				inetAddress = InetAddress.getLocalHost();
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
 				inetAddress = null;
-			}
+			} // give ip address for host player
 			ipAddress = inetAddress.getHostAddress();
 		}
+		// create client thread
 		socketClient = new GameClient(handler, ipAddress);
 		socketClient.start();
 		handler.setSocketClient(socketClient);
@@ -157,24 +161,30 @@ public class GameState extends State {
 			spawnX = 1024;
 			spawnY = 344;
 		}
+
+		keyManager = new KeyManager(handler); // input for player, have to be set individually
 		player = new PlayerMP(handler, keyManager, spawnX, spawnY, JOptionPane.showInputDialog("Enter a username"),
 				State.getSide(), null, -1);
 		basicMap.getEntityManager().addEntity(player);
+		// send information to the server that new player joins the game
 		Packet00Login loginPacket = new Packet00Login(player.getUsername(), player.getX(), player.getY(),
 				player.getTeam(), Castle.MAX_HEALTH, Castle.MAX_HEALTH);
-		if (socketServer != null) {
+		if (socketServer != null) { // if this is host, add player to the connection list
 			socketServer.addConnection((PlayerMP) player, loginPacket);
 		}
+		// send packet
 		loginPacket.writeData(socketClient);
-
+		// create window listener for proper disconnect
 		windowManager = new WindowManager(handler, player.getUsername());
 	}
 
-	public boolean checkForOponents() {
+	public boolean checkForOponents() { // check if player have to wait for oponents
 		int redCount = basicMap.getEntityManager().countRedTeammates();
 		int blueCount = basicMap.getEntityManager().countBlueTeammates();
 		return !(redCount > 0 && blueCount > 0);
 	}
+
+	// getters and setters
 
 	public boolean isWaiting() {
 		return waiting;

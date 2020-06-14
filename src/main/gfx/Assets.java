@@ -2,16 +2,22 @@ package main.gfx;
 
 import java.awt.image.BufferedImage;
 
+// all textures are load and stored in here
+
 public class Assets {
 	
+	// defualt one segment of spritesheet resolution
 	private static final int width = 32, height = 32;
 	
+	// players
 	public static BufferedImage[] bluePlayer, redPlayer;
-	
-	
+	// tiles
 	public static BufferedImage grassTile, blueTower, redTower, redHealTile, blueHealTile, wallTile;
+	// buttons
 	public static BufferedImage[] startButton, exitButton, tryAgainButton, htpButton, backButton;
+	// simple buttons
 	public static BufferedImage redSideButton, blueSideButton;
+	// instruction graphics
 	public static BufferedImage howToPlay;
 	
 	public static BufferedImage blueBasicTower, redBasicTower;

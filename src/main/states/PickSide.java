@@ -9,37 +9,40 @@ import main.ui.UIManager;
 import main.ui.UISimpleButton;
 import main.utilities.Utilities.Teams;
 
-public class PickSide extends State{
+// player here chooses team in which he wants to play
+// he can choose clicking on one of two buttons
+
+public class PickSide extends State {
 
 	private UIManager uiManager;
-	
+
 	public PickSide(Handler handler) {
 		super(handler);
-		
+
 		uiManager = new UIManager(handler);
-		
-		UISimpleButton redSide =  new UISimpleButton(320, 256, 256, 128, Assets.redSideButton, new ClickListener(){
+
+		UISimpleButton redSide = new UISimpleButton(320, 256, 256, 128, Assets.redSideButton, new ClickListener() {
 			@Override
 			public void onClick() {
 				handler.getMouseManager().setUIManager(null);
 				State.setSide(Teams.RED);
-//				if(handler.getGame().gameState == null)
-					handler.getGame().gameState = new GameState(handler);
+				handler.getGame().gameState = new GameState(handler);
 				State.setState(handler.getGame().gameState);
-		}});
-		
+			}
+		});
+
 		uiManager.addObject(redSide);
-		
-		UISimpleButton blueSide =  new UISimpleButton(704, 256, 256, 128, Assets.blueSideButton, new ClickListener(){
+
+		UISimpleButton blueSide = new UISimpleButton(704, 256, 256, 128, Assets.blueSideButton, new ClickListener() {
 			@Override
 			public void onClick() {
 				handler.getMouseManager().setUIManager(null);
 				State.setSide(Teams.BLUE);
-//				if(handler.getGame().gameState == null)
-					handler.getGame().gameState = new GameState(handler);
+				handler.getGame().gameState = new GameState(handler);
 				State.setState(handler.getGame().gameState);
-		}});
-		
+			}
+		});
+
 		uiManager.addObject(blueSide);
 	}
 

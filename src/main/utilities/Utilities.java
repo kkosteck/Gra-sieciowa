@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+// useful universal methods
+// with team enum
+
 public class Utilities {
 
 	public static String loadFileAsString(String path) {

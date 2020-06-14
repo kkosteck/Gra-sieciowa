@@ -9,6 +9,8 @@ import main.ui.ClickListener;
 import main.ui.UIButton;
 import main.ui.UIManager;
 
+// screen with how to play instructions
+
 public class HowToPlay extends State{
 
 	private UIManager uiManager;

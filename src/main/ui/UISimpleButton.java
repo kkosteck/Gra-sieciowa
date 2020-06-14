@@ -3,6 +3,9 @@ package main.ui;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+// simple button, which player can click
+// it cant change texture when player is hovering over it
+
 public class UISimpleButton extends UIObject{
 	
 	private BufferedImage image;

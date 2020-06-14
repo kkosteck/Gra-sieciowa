@@ -5,19 +5,27 @@ import java.awt.Graphics;
 import main.Handler;
 import main.utilities.Utilities.Teams;
 
+// abstract class for every state in the game
+// state is responsible for rendering and ticking proper staff
+// thanks to this we can easily change what we want to show for the player
+
 public abstract class State {
-	
+
 	private static State currentState = null;
 	private static Teams currentSide = Teams.NONE;
-	
-	public static void setState(State state) {
-		currentState = state;
+
+	protected Handler handler;
+
+	public State(Handler handler) {
+		this.handler = handler;
 	}
-	
-	public static State getState() {
-		return currentState;
-	}
-	
+
+	public abstract void tick();
+
+	public abstract void render(Graphics g);
+
+	// getters and setters
+
 	public static Teams getSide() {
 		return currentSide;
 	}
@@ -26,17 +34,12 @@ public abstract class State {
 		State.currentSide = currentSide;
 	}
 
-
-
-	protected Handler handler;
-	
-	public State(Handler handler) {
-		this.handler = handler;
+	public static State getState() {
+		return currentState;
 	}
-	
-	
-	public abstract void tick();
-	
-	public abstract void render(Graphics g);
-	
+
+	public static void setState(State state) {
+		currentState = state;
+	}
+
 }

@@ -13,12 +13,12 @@ import main.entities.creatures.PlayerMP;
 import main.entities.towers.Castle;
 import main.net.packets.Packet;
 import main.net.packets.Packet.PacketTypes;
-import main.utilities.Utilities.Teams;
 import main.net.packets.Packet00Login;
 import main.net.packets.Packet01Disconnect;
 import main.net.packets.Packet02Move;
 import main.net.packets.Packet03Attack;
 import main.net.packets.Packet04Start;
+import main.utilities.Utilities.Teams;
 
 /* class for clientside handle of multiplayer
  * all packets received are resolved in here

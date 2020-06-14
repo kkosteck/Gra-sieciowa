@@ -2,6 +2,9 @@ package main.gfx;
 
 import java.awt.image.BufferedImage;
 
+// class for spritesheets
+// here we can crop every segment of spritesheet
+
 public class SpriteSheet {
 	
 	private BufferedImage sheet;
