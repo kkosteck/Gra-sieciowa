@@ -10,6 +10,8 @@ import main.states.GameState;
 import main.states.MenuState;
 import main.states.State;
 
+/*Main class with all important staff for running the game machine
+*/
 public class Game implements Runnable {
 
 	private Display display;
@@ -22,17 +24,17 @@ public class Game implements Runnable {
 	private BufferStrategy bs;
 	private Graphics g;
 
-	// states
+	// states - all segments within the game are separated in states
 	public State menuState, pickSide, gameOver, gameEnd, howToPlay;
+	// gamestate is not declared as State to avoid annoying casts, for others states
+	// this is unnecessary
 	public GameState gameState;
 
-	// input
-//	private KeyManager keyManager;
+	// input from mouse, other input like keyboard and window are player dependent
+	// and are initialized with player
 	private MouseManager mouseManager;
-	// Handler
+	// Handler - contains all important staff
 	private Handler handler;
-
-	// multiplayer
 
 	public Game(String title, int width, int height) {
 		this.width = width;
@@ -51,12 +53,13 @@ public class Game implements Runnable {
 
 		handler = new Handler(this);
 
+		// first state is menu
 		menuState = new MenuState(handler);
 		State.setState(menuState);
 	}
 
 	private void tick() {
-
+		// tick only when we have state already setted
 		if (State.getState() != null)
 			State.getState().tick();
 	}
@@ -70,8 +73,9 @@ public class Game implements Runnable {
 		g = bs.getDrawGraphics();
 		g.clearRect(0, 0, width, height); // clear screen
 
-		if (State.getState() != null)
+		if (State.getState() != null) {
 			State.getState().render(g);
+		}
 
 		bs.show();
 		g.dispose();
@@ -87,7 +91,7 @@ public class Game implements Runnable {
 		long now; // first timestamp
 		long lastTime = System.nanoTime(); // second timestamp
 		long timer = 0; // timer for fps counter
-		@SuppressWarnings("unused")
+		@SuppressWarnings("unused") // currently disabled fps and tick counter
 		int ticks = 0; // fps counter
 
 		// game loop
@@ -134,9 +138,7 @@ public class Game implements Runnable {
 		}
 	}
 
-//	public KeyManager getKeyManager() {
-//		return keyManager;
-//	}
+	// getters and setters
 
 	public MouseManager getMouseManager() {
 		return mouseManager;

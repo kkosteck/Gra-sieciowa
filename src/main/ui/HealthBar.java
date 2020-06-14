@@ -30,13 +30,15 @@ public class HealthBar extends UIObject{
 			g.setColor(Color.BLACK);
 			g.fillRect((int) x,(int) y, width, height);
 			g.setColor(color);
+
+			float barWidth = ((float)value / (float)maxValue) * (width - 8);
+			if(barWidth < 0)
+				barWidth = 0;
 			if(toLeft) {
-				float barWidth = ((float)value / (float)maxValue) * (width - 8);
 				g.fillRect((int)(x + 4), (int)(y + 4), (int) barWidth, 24);
 				g.setColor(Color.WHITE);
 				drawCenteredString(g,"HP: "+ value + "/" + maxValue,new Rectangle((int) x,(int) y, width, height),new Font("Arial", Font.BOLD, 18));
 			}else {
-				float barWidth = ((float)value / (float)maxValue) * (width - 8);
 				g.fillRect((int)(x + 4 +(width - 8 - barWidth)), (int)(y + 4), (int) barWidth, 24);
 				g.setColor(Color.WHITE);
 				drawCenteredString(g,"HP: "+ value + "/" + maxValue,new Rectangle((int) x,(int) y, width, height),new Font("Arial", Font.BOLD, 18));

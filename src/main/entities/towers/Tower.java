@@ -4,6 +4,9 @@ import main.Handler;
 import main.entities.Entity;
 import main.utilities.Utilities.Teams;
 
+/* class for every towerlike entities 
+ */
+
 public abstract class Tower extends Entity{
 
 	public static final float DEFUALT_ATTACK_SPEED = 3.0f;
@@ -16,12 +19,11 @@ public abstract class Tower extends Entity{
 		this.team = team;
 	}
 
+	//getters and setters
 
 	public Teams getTeam() {
 		return team;
 	}
-
-
 	public void setTeam(Teams team) {
 		this.team = team;
 	}	

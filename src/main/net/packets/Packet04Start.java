@@ -3,6 +3,9 @@ package main.net.packets;
 import main.net.GameClient;
 import main.net.GameServer;
 
+//packet which handles starting game at the right moment
+// and also sends proper tower respawning time
+
 public class Packet04Start extends Packet {
 
 	private int waiting;

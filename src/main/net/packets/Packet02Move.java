@@ -3,10 +3,13 @@ package main.net.packets;
 import main.net.GameClient;
 import main.net.GameServer;
 
+//packet which handles player movement
+
 public class Packet02Move extends Packet{
 
 	private String username;
 	private float xMove, yMove;
+	// we need to also send coordinates of player to tell the server where he currently stands
 	private float x, y;
 	
 	public Packet02Move(byte[] data) {
@@ -44,6 +47,8 @@ public class Packet02Move extends Packet{
 		return ("02" + this.username+","+this.xMove+","+this.yMove+","+this.x+","+this.y).getBytes();
 	}
 
+	//getters and setters
+	
 	public String getUsername() {
 		return username;
 	}

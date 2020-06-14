@@ -3,6 +3,8 @@ package main.states;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import javax.swing.JOptionPane;
 
@@ -73,16 +75,6 @@ public class GameState extends State {
 		if (!waiting) {
 			basicMap.tick();
 			playerHPBar.setValue(player.getHealth());
-
-			if (player.getHealth() <= 0) { // if player dies
-				handler.getMouseManager().setUIManager(null);
-				handler.getGame().gameOver = new GameOver(handler);
-				State.setState(handler.getGame().gameOver);
-
-				Packet01Disconnect packet = new Packet01Disconnect(player.getUsername());
-				packet.writeData(handler.getSocketClient());
-				player.setActive(false);
-			}
 		}
 		uiManager.tick();
 	}
@@ -96,7 +88,13 @@ public class GameState extends State {
 			g.setFont(new Font("Arial", Font.PLAIN, 100));
 			g.drawString("WAIT FOR OPONENTS", 75, 360);
 		}
-
+		if(!player.isLiving()) {
+			g.setFont(new Font("Arial", Font.PLAIN, 240));
+			g.drawString("YOU DIED", 75, 360);
+			g.setFont(new Font("Arial", Font.BOLD, 28));
+			g.setColor(Color.BLACK);
+			g.drawString("Respawn in:"+(int) (10 - (player.getDeathTimer() / 1000)) + "s", 540, 400);
+		}
 	}
 
 	public Player getPlayer() {
@@ -126,12 +124,29 @@ public class GameState extends State {
 	}
 
 	public void multiplayer() {
-		if (JOptionPane.showConfirmDialog(null, "Do you want to run the server?") == 0) {
+        String[] options = {"run", "join"};
+        int choose = JOptionPane.showOptionDialog(null, "Do you want to run the server or join exisiting?",
+                "Server creation",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+		if (choose == 0) {
 			socketServer = new GameServer(handler);
 			socketServer.start();
 			handler.setSocketServer(socketServer);
 		}
-		socketClient = new GameClient(handler, JOptionPane.showInputDialog("Enter a server ip"));
+		String ipAddress;
+		if(choose == 1) {
+			ipAddress = JOptionPane.showInputDialog("Enter a server ip");
+		}else {
+			InetAddress inetAddress;
+			try {
+				inetAddress = InetAddress.getLocalHost();
+			} catch (UnknownHostException e) {
+				e.printStackTrace();
+				inetAddress = null;
+			}
+			ipAddress = inetAddress.getHostAddress();
+		}
+		socketClient = new GameClient(handler, ipAddress);
 		socketClient.start();
 		handler.setSocketClient(socketClient);
 

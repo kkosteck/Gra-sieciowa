@@ -3,6 +3,8 @@ package main.net.packets;
 import main.net.GameClient;
 import main.net.GameServer;
 
+//packet which handles player login out of server
+
 public class Packet01Disconnect extends Packet{
 
 	private String username;
