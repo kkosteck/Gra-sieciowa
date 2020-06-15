@@ -10,7 +10,7 @@ import main.tiles.Tile;
 
 public abstract class Creature extends Entity {
 
-	public static final float DEFUALT_SPEED = 3.0f;
+	public static final float DEFUALT_SPEED = 6.0f;
 	public static final int DEFUALT_CREATURE_WIDTH = 32, DEFUALT_CREATURE_HEIGHT = 32;
 
 	protected float speed;
