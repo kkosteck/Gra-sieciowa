@@ -91,6 +91,7 @@ public class Game implements Runnable {
 		long now; // first timestamp
 		long lastTime = System.nanoTime(); // second timestamp
 		long timer = 0; // timer for fps counter
+		@SuppressWarnings("unused")
 		int ticks = 0; // fps counter
 
 		// game loop
@@ -108,7 +109,7 @@ public class Game implements Runnable {
 			}
 
 			if (timer >= 1e9) { // fps counter
-				System.out.println("FPS: " + ticks);
+//				System.out.println("FPS: " + ticks);
 				ticks = 0;
 				timer = 0;
 			}

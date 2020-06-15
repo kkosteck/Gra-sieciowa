@@ -68,7 +68,7 @@ public class BasicBullet extends Creature {
 		g.drawImage(texture, (int) x, (int) y, 16, 16, null);
 	}
 
-	public void checkTarget() {
+	public synchronized void checkTarget() {
 		for (Entity e : handler.getMap().getEntityManager().getEntities()) {
 			if (e.equals(this)) // not target myself
 				continue;
