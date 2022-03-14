@@ -1,5 +1,4 @@
-# PROZ
-Simple multiplayer strategy game
+# Simple multiplayer strategy game
 
 by zobaczyć zasady gry należy nacisnąć HOW TO PLAY, aby zacząć grę START, a by wyjść EXIT. Kiedy wybierzemy opcję START musimy dokonać wyboru w której drużynie chcemy grać (RED lub BLUE). Następnie wybieramy czy chcemy utworzyć nowy serwer lub czy chcemy dołączyć do już istniejącego serwera. W następnym kroku jeżeli zadecydowaliśmy o dołączeniu do serwera musimy podać jego ip. Następnie podajemy naszą nazwę użytkownika. Po jej podaniu przechodzimy do właściwej rozgrywki. Jeżeli jesteśmy hostem i żaden z przeciwników jeszcze nie dołączył do rozgrywki, wyświetla się napis, iż musimy poczekać na przeciwnika. Dopóki nikt nie dołączy do drużyny przeciwnej gracze nie mogą się ruszać, atakować itd. 
 
